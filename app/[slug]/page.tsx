@@ -111,7 +111,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
           {/* Back Link */}
           <div className="pt-8 border-t">
-            <Link href="/articles">
+            <Link href="/fractional-jobs-articles">
               <button className="px-6 py-2.5 bg-purple-700 text-white rounded-lg hover:bg-purple-800 font-semibold">
                 ← Back to All Articles
               </button>
