@@ -3,43 +3,29 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 
-const ROLE_CATEGORIES = [
-  { value: '', label: 'All Roles' },
-  { value: 'CFO', label: 'CFO - Finance' },
-  { value: 'CMO', label: 'CMO - Marketing' },
-  { value: 'CTO', label: 'CTO - Technology' },
-  { value: 'COO', label: 'COO - Operations' },
-  { value: 'HR', label: 'HR Director' },
-  { value: 'Sales', label: 'Sales Director' },
-  { value: 'Executive', label: 'Other Executive' },
-]
-
-const REMOTE_OPTIONS = [
-  { value: '', label: 'All Work Types' },
-  { value: 'remote', label: 'Remote Only' },
-  { value: 'hybrid', label: 'Hybrid' },
-  { value: 'onsite', label: 'On-site' },
-]
-
-const LOCATION_OPTIONS = [
-  { value: '', label: 'All Locations' },
-  { value: 'London', label: 'London' },
-  { value: 'Manchester', label: 'Manchester' },
-  { value: 'Remote', label: 'UK Remote' },
-]
+interface FilterOption {
+  value: string
+  label: string
+}
 
 interface JobFiltersProps {
   currentRole?: string
   currentRemote?: string
   currentLocation?: string
   totalJobs: number
+  roleOptions: FilterOption[]
+  locationOptions: FilterOption[]
+  workTypeOptions: FilterOption[]
 }
 
 export function JobFilters({
   currentRole = '',
   currentRemote = '',
   currentLocation = '',
-  totalJobs
+  totalJobs,
+  roleOptions,
+  locationOptions,
+  workTypeOptions
 }: JobFiltersProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -80,7 +66,7 @@ export function JobFilters({
             onChange={(e) => handleFilterChange('role', e.target.value)}
             className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
           >
-            {ROLE_CATEGORIES.map((option) => (
+            {roleOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -99,7 +85,7 @@ export function JobFilters({
             onChange={(e) => handleFilterChange('remote', e.target.value)}
             className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
           >
-            {REMOTE_OPTIONS.map((option) => (
+            {workTypeOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -118,7 +104,7 @@ export function JobFilters({
             onChange={(e) => handleFilterChange('location', e.target.value)}
             className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
           >
-            {LOCATION_OPTIONS.map((option) => (
+            {locationOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -149,7 +135,7 @@ export function JobFilters({
           <span className="text-sm text-gray-500">Active filters:</span>
           {currentRole && (
             <span className="inline-flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-800 text-sm rounded-full">
-              {ROLE_CATEGORIES.find(r => r.value === currentRole)?.label}
+              {roleOptions.find(r => r.value === currentRole)?.label || currentRole}
               <button
                 onClick={() => handleFilterChange('role', '')}
                 className="hover:text-purple-900"
@@ -160,7 +146,7 @@ export function JobFilters({
           )}
           {currentRemote && (
             <span className="inline-flex items-center gap-1 px-3 py-1 bg-emerald-100 text-emerald-800 text-sm rounded-full">
-              {REMOTE_OPTIONS.find(r => r.value === currentRemote)?.label}
+              {workTypeOptions.find(r => r.value === currentRemote)?.label || currentRemote}
               <button
                 onClick={() => handleFilterChange('remote', '')}
                 className="hover:text-emerald-900"
@@ -171,7 +157,7 @@ export function JobFilters({
           )}
           {currentLocation && (
             <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
-              {currentLocation}
+              {locationOptions.find(l => l.value === currentLocation)?.label || currentLocation}
               <button
                 onClick={() => handleFilterChange('location', '')}
                 className="hover:text-blue-900"
