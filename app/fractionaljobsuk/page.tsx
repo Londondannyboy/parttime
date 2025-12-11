@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { sql } from '@/lib/db'
+import { dbQuery } from '@/lib/db'
 import { Button } from '@/components/Button'
 import { Card } from '@/components/Card'
 import { Badge } from '@/components/Badge'
@@ -64,7 +64,7 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
 
     query += ` ORDER BY posted_date DESC LIMIT ${limit} OFFSET ${offset}`
 
-    const jobs = await sql(query)
+    const jobs = await dbQuery(query)
 
     // Get total count for pagination
     let countQuery = `
@@ -86,7 +86,7 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
       countQuery += ` AND is_remote = true`
     }
 
-    const countResult = await sql(countQuery)
+    const countResult = await dbQuery(countQuery)
     const total = countResult[0]?.count || 0
     const totalPages = Math.ceil(total / limit)
 

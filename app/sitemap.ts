@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { sql } from '@/lib/db'
+import { dbQuery } from '@/lib/db'
 
 export const revalidate = 3600 // Revalidate every hour
 
@@ -54,7 +54,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     // Fetch all active jobs
-    const jobs = await sql(
+    const jobs = await dbQuery(
       `SELECT title, updated_date FROM jobs WHERE is_active = true AND is_fractional = true ORDER BY updated_date DESC LIMIT 500`
     )
 
@@ -66,7 +66,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
 
     // Fetch all published articles
-    const articles = await sql(
+    const articles = await dbQuery(
       `SELECT slug, published_at FROM articles WHERE status = 'published' AND app = 'fractional' ORDER BY published_at DESC LIMIT 500`
     )
 

@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { sql } from '@/lib/db'
+import { dbQuery } from '@/lib/db'
 import { Button } from '@/components/Button'
 import { Badge } from '@/components/Badge'
 
@@ -17,9 +17,8 @@ export async function generateMetadata({ params }: JobDetailPageProps): Promise<
     // Decode the slug to get the job title
     const title = decodeURIComponent(params.slug).replace(/-/g, ' ').toUpperCase()
 
-    const result = await sql(
-      `SELECT title, company_name FROM jobs WHERE title ILIKE $1 LIMIT 1`,
-      [title]
+    const result = await dbQuery(
+      `SELECT title, company_name FROM jobs WHERE title ILIKE '%${title}%' LIMIT 1`
     )
 
     const job = result[0]
@@ -43,7 +42,7 @@ export async function generateMetadata({ params }: JobDetailPageProps): Promise<
 
 export async function generateStaticParams() {
   try {
-    const jobs = await sql(
+    const jobs = await dbQuery(
       `SELECT title FROM jobs WHERE is_active = true AND is_fractional = true LIMIT 100`
     )
 
@@ -60,7 +59,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
     // Decode the slug to get the job title
     const title = decodeURIComponent(params.slug).replace(/-/g, ' ').toUpperCase()
 
-    const result = await sql(
+    const result = await dbQuery(
       `
       SELECT
         id,
@@ -81,10 +80,9 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
         is_remote,
         url
       FROM jobs
-      WHERE title ILIKE $1 AND is_active = true
+      WHERE title ILIKE '%${title}%' AND is_active = true
       LIMIT 1
-      `,
-      [title]
+      `
     )
 
     if (!result || result.length === 0) {
