@@ -6,17 +6,22 @@ import { VoiceProvider, useVoice } from '@humeai/voice-react'
 
 const CONFIG_ID = 'd57ceb71-4cf5-47e9-87cd-6052445a031c'
 
-function VoiceInterface({ token, userId, firstName }: { token: string; userId?: string; firstName?: string }) {
+function VoiceInterface({ token, userId, profile }: { token: string; userId?: string; profile?: any }) {
   const { connect, disconnect, status, messages, isPlaying } = useVoice()
 
   const handleConnect = useCallback(async () => {
     const vars = {
       user_id: userId || '',
-      first_name: firstName || '',
+      first_name: profile?.first_name || '',
+      last_name: profile?.last_name || '',
       is_authenticated: userId ? 'true' : 'false',
+      current_country: profile?.current_country || '',
+      interests: profile?.interests || '',
+      timeline: profile?.timeline || '',
+      budget: profile?.budget_monthly ? `£${profile.budget_monthly}/day` : '',
     }
 
-    console.log('[Hume] Connecting with:', vars)
+    console.log('[Hume] Connecting with profile:', vars)
 
     try {
       await connect({
@@ -30,7 +35,7 @@ function VoiceInterface({ token, userId, firstName }: { token: string; userId?: 
     } catch (e) {
       console.error('Connection error:', e)
     }
-  }, [connect, token, userId, firstName])
+  }, [connect, token, userId, profile])
 
   const isConnected = status.value === 'connected'
   const isConnecting = status.value === 'connecting'
@@ -72,14 +77,28 @@ function VoiceInterface({ token, userId, firstName }: { token: string; userId?: 
 export default function VoiceCleanPage() {
   const user = useUser()
   const [token, setToken] = useState<string | null>(null)
+  const [profile, setProfile] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
 
+  // Fetch Hume token
   useEffect(() => {
     fetch('/api/hume-token')
       .then(r => r.json())
       .then(d => d.accessToken ? setToken(d.accessToken) : setError('No token'))
       .catch(e => setError(e.message))
   }, [])
+
+  // Fetch profile from Neon
+  useEffect(() => {
+    if (!user) return
+    fetch('/api/user-profile')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        console.log('[Profile from Neon]', data)
+        setProfile(data)
+      })
+      .catch(console.error)
+  }, [user])
 
   if (error) return <div className="p-8 text-red-500">Error: {error}</div>
   if (!token) return <div className="p-8">Loading...</div>
@@ -89,7 +108,11 @@ export default function VoiceCleanPage() {
       onError={(err) => console.error('[Hume Error]', err)}
       onClose={(e) => console.warn('[Hume Close]', e?.code, e?.reason)}
     >
-      <VoiceInterface token={token} userId={user?.id} firstName={user?.displayName?.split(' ')[0]} />
+      <VoiceInterface
+        token={token}
+        userId={user?.id}
+        profile={profile}
+      />
     </VoiceProvider>
   )
 }
