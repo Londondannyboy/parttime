@@ -1,17 +1,15 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { VoiceProvider, useVoice } from '@humeai/voice-react'
-import Link from 'next/link'
 
 const CONFIG_ID = process.env.NEXT_PUBLIC_HUME_CONFIG_ID || 'd57ceb71-4cf5-47e9-87cd-6052445a031c'
 
 export interface UserProfile {
   first_name: string | null
   current_country: string | null
-  destination_countries: string[] | null
-  budget_monthly?: number | null  // DB returns this
-  budget?: string | null          // For compatibility
+  budget_monthly?: number | null
+  budget?: string | null
   timeline: string | null
   interests: string[] | null
 }
@@ -24,8 +22,8 @@ export interface HumeMessage {
   }
 }
 
-// Fixed implementation - passes ALL variables at connect time
-function VoiceChat({
+// Inner component that uses the voice hook
+function VoiceWidget({
   accessToken,
   userName,
   isAuthenticated,
@@ -43,38 +41,46 @@ function VoiceChat({
   const [logs, setLogs] = useState<string[]>([])
 
   const log = (msg: string) => {
-    console.log('[Hume]', msg)
-    setLogs(prev => [...prev.slice(-14), `${new Date().toLocaleTimeString()} ${msg}`])
+    const time = new Date().toLocaleTimeString()
+    console.log(`[Hume ${time}]`, msg)
+    setLogs(prev => [...prev.slice(-9), `${time} ${msg}`])
   }
 
-  // Watch status changes
+  // Log status changes
   useEffect(() => {
-    log(`Status changed: ${status.value}`)
-    if (status.value === 'error') {
-      console.error('[Hume] Status error')
-    }
+    log(`Status: ${status.value}`)
   }, [status.value])
 
-  // Forward transcripts
+  // Log messages and forward transcripts
   useEffect(() => {
-    if (!onTranscript || messages.length === 0) return
-    const userMsgs = messages.filter((m: any) => m.type === 'user_message' && m.message?.content)
-    if (userMsgs.length > 0) {
-      const transcript = userMsgs.map((m: any) => m.message?.content).join('\n')
-      onTranscript(transcript, messages as HumeMessage[])
+    if (messages.length === 0) return
+
+    const last = messages[messages.length - 1] as any
+    if (last.type === 'assistant_message' && last.message?.content) {
+      const content = last.message.content
+      const hasName = userName && content.toLowerCase().includes(userName.toLowerCase())
+      log(`🤖 "${content.slice(0, 50)}..." ${hasName ? '✅' : ''}`)
     }
-  }, [messages, onTranscript])
+
+    // Forward transcripts
+    if (onTranscript) {
+      const userMsgs = messages.filter((m: any) => m.type === 'user_message' && m.message?.content)
+      if (userMsgs.length > 0) {
+        const transcript = userMsgs.map((m: any) => m.message?.content).join('\n')
+        onTranscript(transcript, messages as HumeMessage[])
+      }
+    }
+  }, [messages, userName, onTranscript])
 
   const handleConnect = useCallback(async () => {
     setIsPending(true)
-    log('Connecting with variables...')
 
-    // Build ALL 6 variables that the Quest prompt expects
-    // Handle budget_monthly (number from DB) or budget (string)
+    // Build budget string
     const budgetStr = userProfile?.budget_monthly
       ? `£${userProfile.budget_monthly}/day`
       : userProfile?.budget || ''
 
+    // All 6 variables for Quest prompt
     const sessionSettings = {
       type: 'session_settings' as const,
       variables: {
@@ -87,15 +93,10 @@ function VoiceChat({
       }
     }
 
-    // Debug log the variables being sent
-    console.log('[Hume] Connecting with profile:', { userName, isAuthenticated, userProfile })
-    console.log('[Hume] Session variables:', sessionSettings.variables)
-
-    log(`Variables: first_name=${userName}, auth=${isAuthenticated}`)
+    log(`Connecting: ${userName}, auth=${isAuthenticated}`)
+    console.log('[Hume] Variables:', sessionSettings.variables)
 
     try {
-      log(`Token: ${accessToken?.slice(0, 10)}... ConfigID: ${CONFIG_ID?.slice(0, 12)}...`)
-      // Pass variables AT CONNECT TIME - this is the fix!
       await connect({
         auth: { type: 'accessToken', value: accessToken },
         configId: CONFIG_ID,
@@ -103,15 +104,16 @@ function VoiceChat({
       })
       log('Connected!')
     } catch (e: any) {
-      console.error('[Hume] Connection error:', e)
-      log(`Error: ${e?.message || e?.toString() || JSON.stringify(e) || 'Unknown error'}`)
+      log(`Error: ${e?.message || e}`)
+      console.error('[Hume] Connect error:', e)
     }
+
     setIsPending(false)
   }, [connect, accessToken, userName, isAuthenticated, userProfile])
 
   const handleDisconnect = useCallback(() => {
-    log('Disconnecting...')
     disconnect()
+    log('Disconnected')
   }, [disconnect])
 
   const isConnected = status.value === 'connected'
@@ -123,7 +125,7 @@ function VoiceChat({
 
   return (
     <div className="flex flex-col items-center gap-4">
-      {/* Voice Button */}
+      {/* Mic Button */}
       <button
         onClick={isConnected ? handleDisconnect : handleConnect}
         disabled={isPending}
@@ -144,12 +146,12 @@ function VoiceChat({
         )}
       </button>
 
-      {/* Status */}
+      {/* Status Text */}
       <p className="text-sm text-purple-200">
         {isPending ? 'Connecting...' : isConnected ? 'Listening...' : 'Tap to talk'}
       </p>
 
-      {/* Stop button when connected */}
+      {/* Stop Button */}
       {isConnected && (
         <button
           onClick={handleDisconnect}
@@ -159,7 +161,7 @@ function VoiceChat({
         </button>
       )}
 
-      {/* Last message */}
+      {/* Last Message */}
       {lastMsg?.message?.content && (
         <div className="max-w-md bg-white/10 backdrop-blur rounded-lg px-4 py-2 text-sm text-white">
           {lastMsg.message.content.slice(0, 200)}
@@ -169,8 +171,12 @@ function VoiceChat({
 
       {/* Debug Panel */}
       <div className="mt-4 w-full max-w-md p-3 bg-black/60 rounded text-xs font-mono text-green-400">
-        <div className="text-yellow-400 mb-2">Debug (user: {userName || 'none'}, auth: {isAuthenticated ? 'yes' : 'no'})</div>
-        <div className="text-gray-600 mb-2">Status: {status.value} | Config: {CONFIG_ID.slice(0,8)}...</div>
+        <div className="text-yellow-400 mb-2">
+          Debug (user: {userName || 'none'}, auth: {isAuthenticated ? 'yes' : 'no'})
+        </div>
+        <div className="text-gray-500 mb-2">
+          Status: {status.value} | Config: {CONFIG_ID.slice(0, 8)}...
+        </div>
         <div className="space-y-1 max-h-32 overflow-auto">
           {logs.length === 0 && <div className="text-gray-600">Tap mic to start...</div>}
           {logs.map((l, i) => <div key={i}>{l}</div>)}
@@ -180,6 +186,7 @@ function VoiceChat({
   )
 }
 
+// Props for the exported component
 export interface HumeWidgetProps {
   variant?: 'hero' | 'floating'
   userName?: string
@@ -189,6 +196,7 @@ export interface HumeWidgetProps {
   onTranscript?: (transcript: string, allMessages: HumeMessage[]) => void
 }
 
+// Main exported component - fetches token, renders VoiceProvider
 export function HumeWidget({
   userName,
   isAuthenticated = false,
@@ -198,27 +206,35 @@ export function HumeWidget({
   const [accessToken, setAccessToken] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  // Get display name
+  // Derive display name from profile or prop
   const displayName = userProfile?.first_name || userName || undefined
 
+  // Fetch token on mount
   useEffect(() => {
+    console.log('[HumeWidget] Fetching token...')
     fetch('/api/hume-token')
       .then(res => res.json())
       .then(data => {
         if (data.accessToken) {
+          console.log('[HumeWidget] Token received')
           setAccessToken(data.accessToken)
         } else {
-          setError('No token received')
+          console.error('[HumeWidget] No token:', data)
+          setError(data.error || 'No token received')
         }
       })
-      .catch(err => setError(err.message))
+      .catch(err => {
+        console.error('[HumeWidget] Token fetch error:', err)
+        setError(err.message)
+      })
   }, [])
 
+  // Error state
   if (error) {
     return (
       <div className="flex flex-col items-center gap-4 text-center">
         <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center">
-          <svg className="w-8 h-8 text-purple-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-8 h-8 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
         </div>
@@ -228,6 +244,7 @@ export function HumeWidget({
     )
   }
 
+  // Loading state
   if (!accessToken) {
     return (
       <div className="flex flex-col items-center gap-4">
@@ -239,9 +256,10 @@ export function HumeWidget({
     )
   }
 
+  // Ready - render with VoiceProvider
   return (
     <VoiceProvider>
-      <VoiceChat
+      <VoiceWidget
         accessToken={accessToken}
         userName={displayName}
         isAuthenticated={isAuthenticated}
