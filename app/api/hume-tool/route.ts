@@ -199,7 +199,7 @@ async function searchJobs(params: {
 
     const jobs = await sql`
       SELECT
-        id, title, company_name, location, is_remote,
+        id, slug, title, company_name, location, is_remote,
         salary_min, salary_max, salary_currency
       FROM jobs
       WHERE is_active = true
@@ -226,6 +226,8 @@ async function searchJobs(params: {
           desc += ` - ${symbol}${j.salary_min}-${j.salary_max}/day`
         }
       }
+      // Add link to job (using slug for SEO-friendly URLs)
+      if (j.slug) desc += ` - View at fractional.quest/job/${j.slug}`
       return desc
     }).join('. ')
 

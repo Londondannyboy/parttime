@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { neon } from '@neondatabase/serverless'
+import { storeConversationMemory } from '@/lib/supermemory'
+import { addToUserGraph } from '@/lib/zep-client'
 
 const sql = neon(process.env.DATABASE_URL!)
 
@@ -83,17 +85,37 @@ export async function POST(request: NextRequest) {
     // Sync to ZEP if available
     if (process.env.ZEP_API_KEY) {
       try {
-        await syncToZep(user_id, messages || [])
+        await addToUserGraph(user_id, {
+          type: 'conversation',
+          chat_id,
+          messages: messages?.map(m => ({ role: m.role, content: m.content })),
+          timestamp: new Date().toISOString()
+        })
         console.log('[Hume Webhook] Synced to ZEP')
       } catch (zepError) {
         console.error('[Hume Webhook] ZEP sync failed:', zepError)
       }
     }
 
+    // Sync to Supermemory if available
+    if (process.env.SUPERMEMORY_API_KEY) {
+      try {
+        await storeConversationMemory(user_id, conversationText)
+        console.log('[Hume Webhook] Synced to Supermemory')
+      } catch (smError) {
+        console.error('[Hume Webhook] Supermemory sync failed:', smError)
+      }
+    }
+
     return NextResponse.json({
       status: 'saved',
       chat_id,
-      message_count: messages?.length || 0
+      message_count: messages?.length || 0,
+      synced: {
+        neon: true,
+        zep: !!process.env.ZEP_API_KEY,
+        supermemory: !!process.env.SUPERMEMORY_API_KEY
+      }
     })
   } catch (error) {
     console.error('[Hume Webhook] Error:', error)
@@ -102,23 +124,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
-}
-
-async function syncToZep(userId: string, messages: Array<{ role: string; content: string }>) {
-  const zepMessages = messages.map(m => ({
-    role: m.role === 'assistant' ? 'assistant' : 'user',
-    content: m.content,
-    role_type: m.role === 'assistant' ? 'assistant' : 'user'
-  }))
-
-  await fetch(`https://api.getzep.com/api/v2/users/${userId}/sessions/hume/messages`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${process.env.ZEP_API_KEY}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ messages: zepMessages })
-  })
 }
 
 // GET for testing

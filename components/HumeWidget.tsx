@@ -12,6 +12,7 @@ export interface UserProfile {
   budget?: string | null
   timeline: string | null
   interests: string[] | null
+  neon_auth_id?: string | null
 }
 
 export interface HumeMessage {
@@ -26,12 +27,14 @@ export interface HumeMessage {
 function VoiceWidget({
   accessToken,
   userName,
+  userId,
   isAuthenticated,
   userProfile,
   onTranscript
 }: {
   accessToken: string
   userName?: string
+  userId?: string
   isAuthenticated: boolean
   userProfile?: UserProfile | null
   onTranscript?: (transcript: string, allMessages: HumeMessage[]) => void
@@ -80,10 +83,11 @@ function VoiceWidget({
       ? `£${userProfile.budget_monthly}/day`
       : userProfile?.budget || ''
 
-    // All 6 variables for Quest prompt
+    // All variables for Quest prompt (including user_id for tools)
     const sessionSettings = {
       type: 'session_settings' as const,
       variables: {
+        user_id: userId || '',
         first_name: userName || '',
         is_authenticated: isAuthenticated ? 'true' : 'false',
         current_country: userProfile?.current_country || '',
@@ -109,7 +113,7 @@ function VoiceWidget({
     }
 
     setIsPending(false)
-  }, [connect, accessToken, userName, isAuthenticated, userProfile])
+  }, [connect, accessToken, userName, userId, isAuthenticated, userProfile])
 
   const handleDisconnect = useCallback(() => {
     disconnect()
@@ -190,6 +194,7 @@ function VoiceWidget({
 export interface HumeWidgetProps {
   variant?: 'hero' | 'floating'
   userName?: string
+  userId?: string
   isAuthenticated?: boolean
   darkMode?: boolean
   userProfile?: UserProfile | null
@@ -199,6 +204,7 @@ export interface HumeWidgetProps {
 // Main exported component - fetches token, renders VoiceProvider
 export function HumeWidget({
   userName,
+  userId,
   isAuthenticated = false,
   userProfile,
   onTranscript
@@ -262,6 +268,7 @@ export function HumeWidget({
       <VoiceWidget
         accessToken={accessToken}
         userName={displayName}
+        userId={userId}
         isAuthenticated={isAuthenticated}
         userProfile={userProfile}
         onTranscript={onTranscript}
