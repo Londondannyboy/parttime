@@ -11,9 +11,17 @@ const CONFIG_ID = 'd57ceb71-4cf5-47e9-87cd-6052445a031c'
 function VoiceInterface({ token, profile }: { token: string; profile: any }) {
   const { connect, disconnect, status, messages, lastVoiceMessage, isPlaying, isMuted, micFft } = useVoice()
 
-  // Debug: Log all messages and status changes
+  // Debug: Log all status changes with timestamp
   useEffect(() => {
-    console.log('=== HUME STATUS ===', status.value)
+    const time = new Date().toLocaleTimeString()
+    console.log(`=== HUME STATUS [${time}] ===`, status.value)
+
+    if (status.value === 'disconnected') {
+      console.warn('⚠️ DISCONNECTED - Check if this was unexpected')
+    }
+    if (status.value === 'error') {
+      console.error('❌ HUME ERROR STATE')
+    }
   }, [status.value])
 
   useEffect(() => {
