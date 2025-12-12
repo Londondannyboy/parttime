@@ -51,23 +51,70 @@ export interface HumeMessage {
 }
 
 function VoiceInterface({ accessToken, onUse, darkMode = true, userProfile, onTranscript, isAuthenticated = false }: VoiceInterfaceProps) {
-  const { connect, disconnect, status, messages, mute, unmute, isMuted } = useVoice()
+  const { connect, disconnect, status, messages, sendSessionSettings } = useVoice()
   const [isConnecting, setIsConnecting] = useState(false)
   const [hasConnectedOnce, setHasConnectedOnce] = useState(false)
   const [lastProcessedIndex, setLastProcessedIndex] = useState(0)
   const [debugLogs, setDebugLogs] = useState<string[]>([])
   const [connectError, setConnectError] = useState<string | null>(null)
+  const [sessionSettingsSent, setSessionSettingsSent] = useState(false)
 
   const addLog = (msg: string) => {
     console.log('[Hume]', msg)
-    setDebugLogs(prev => [...prev.slice(-9), `${new Date().toISOString().slice(11, 19)} ${msg}`])
+    setDebugLogs(prev => [...prev.slice(-19), `${new Date().toISOString().slice(11, 19)} ${msg}`])
   }
 
   // Handle stop - disconnect from Hume
   const handleStop = useCallback(() => {
     addLog('Disconnecting...')
     disconnect()
+    setSessionSettingsSent(false)
   }, [disconnect])
+
+  // Watch for chat_metadata message and then send session_settings
+  // This is the approach confirmed by Hume support - must wait for chat_metadata first
+  useEffect(() => {
+    if (sessionSettingsSent) return
+    if (status.value !== 'connected') return
+
+    // Check if we have chat_metadata
+    const hasChatMetadata = messages.some((msg: unknown) => {
+      const typedMsg = msg as { type?: string }
+      return typedMsg.type === 'chat_metadata'
+    })
+
+    if (hasChatMetadata) {
+      addLog('✅ Received chat_metadata - sending session_settings...')
+
+      // Build variables for Hume - must match {{placeholder}} names in system prompt
+      const variables: Record<string, string> = {
+        is_authenticated: isAuthenticated ? 'true' : 'false'
+      }
+
+      if (userProfile) {
+        if (userProfile.first_name) variables.first_name = userProfile.first_name
+        if (userProfile.current_country) variables.current_country = userProfile.current_country
+        if (userProfile.destination_countries?.length) {
+          variables.destination_countries = userProfile.destination_countries.join(', ')
+        }
+        if (userProfile.budget) variables.budget = userProfile.budget
+        if (userProfile.timeline) variables.timeline = userProfile.timeline
+        if (userProfile.interests?.length) {
+          variables.interests = userProfile.interests.join(', ')
+        }
+      }
+
+      const settings = {
+        type: 'session_settings' as const,
+        variables
+      }
+
+      addLog(`Sending: ${JSON.stringify(settings)}`)
+      sendSessionSettings(settings as any)
+      setSessionSettingsSent(true)
+      addLog('✅ Session settings sent!')
+    }
+  }, [messages, status.value, sessionSettingsSent, userProfile, isAuthenticated, sendSessionSettings])
 
   // Watch for new user messages and trigger extraction
   useEffect(() => {
@@ -105,43 +152,21 @@ function VoiceInterface({ accessToken, onUse, darkMode = true, userProfile, onTr
   const handleConnect = useCallback(async () => {
     setIsConnecting(true)
     setConnectError(null)
+    setSessionSettingsSent(false)
 
     try {
-      // Build variables for Hume config
-      // These must match the {{variable_name}} placeholders in the Hume system prompt
-      const variables: Record<string, string> = {
-        is_authenticated: isAuthenticated ? 'true' : 'false'
-      }
-
-      if (userProfile) {
-        if (userProfile.first_name) variables.first_name = userProfile.first_name
-        if (userProfile.current_country) variables.current_country = userProfile.current_country
-        if (userProfile.destination_countries?.length) {
-          variables.destination_countries = userProfile.destination_countries.join(', ')
-        }
-        if (userProfile.budget) variables.budget = userProfile.budget
-        if (userProfile.timeline) variables.timeline = userProfile.timeline
-        if (userProfile.interests?.length) {
-          variables.interests = userProfile.interests.join(', ')
-        }
-      }
-
-      addLog(`Auth: ${isAuthenticated}, Name: ${variables.first_name || 'none'}`)
+      addLog(`Auth: ${isAuthenticated}, Name: ${userProfile?.first_name || 'none'}`)
       addLog(`Config: ${HUME_CONFIG_ID.slice(0, 8)}...`)
-      addLog(`Variables: ${JSON.stringify(variables)}`)
+      addLog('Connecting (will send vars after chat_metadata)...')
 
-      // Connect with sessionSettings inside options
-      // Cast to any to bypass strict type checking - the SDK accepts this format
+      // Connect WITHOUT sessionSettings - we'll send them after receiving chat_metadata
+      // This is the approach confirmed by Hume support
       await connect({
         auth: { type: 'accessToken', value: accessToken },
-        configId: HUME_CONFIG_ID,
-        sessionSettings: {
-          type: 'session_settings',
-          variables
-        } as any
+        configId: HUME_CONFIG_ID
       })
 
-      addLog('Connected successfully!')
+      addLog('✅ Connected! Waiting for chat_metadata...')
 
       if (!hasConnectedOnce) {
         onUse()
@@ -149,7 +174,7 @@ function VoiceInterface({ accessToken, onUse, darkMode = true, userProfile, onTr
       }
     } catch (error: unknown) {
       const errorMsg = error instanceof Error ? error.message : String(error)
-      addLog(`ERROR: ${errorMsg}`)
+      addLog(`❌ ERROR: ${errorMsg}`)
       setConnectError(errorMsg)
       console.error('Failed to connect to Hume:', error)
     }
@@ -226,23 +251,22 @@ function VoiceInterface({ accessToken, onUse, darkMode = true, userProfile, onTr
         </div>
       )}
 
-      {/* Debug Panel - collapsible */}
-      {(debugLogs.length > 0 || connectError) && (
-        <details className="mt-4 w-full max-w-md">
-          <summary className={`text-xs cursor-pointer ${darkMode ? 'text-purple-300' : 'text-gray-400'}`}>
-            Debug {connectError ? '⚠️' : ''}
-          </summary>
-          <div className={`mt-2 p-2 rounded text-xs font-mono ${darkMode ? 'bg-black/50 text-green-400' : 'bg-gray-900 text-green-400'}`}>
-            {connectError && (
-              <div className="text-red-400 mb-2">Error: {connectError}</div>
-            )}
-            {debugLogs.map((log, i) => (
-              <div key={i} className="truncate">{log}</div>
-            ))}
-            <div className="text-gray-500 mt-1">Status: {status.value}</div>
-          </div>
-        </details>
-      )}
+      {/* Debug Panel - always visible */}
+      <div className="mt-4 w-full max-w-md">
+        <div className={`p-2 rounded text-xs font-mono ${darkMode ? 'bg-black/50 text-green-400' : 'bg-gray-900 text-green-400'}`}>
+          <div className="text-yellow-400 mb-1">Debug (user: {userProfile?.first_name || 'none'})</div>
+          {connectError && (
+            <div className="text-red-400 mb-2">Error: {connectError}</div>
+          )}
+          {debugLogs.length === 0 && (
+            <div className="text-gray-500">Tap to connect...</div>
+          )}
+          {debugLogs.map((log, i) => (
+            <div key={i} className="truncate">{log}</div>
+          ))}
+          <div className="text-gray-500 mt-1">Status: {status.value} | SettingsSent: {sessionSettingsSent ? 'yes' : 'no'}</div>
+        </div>
+      </div>
     </div>
   )
 }

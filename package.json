@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@getzep/zep-cloud": "^3.13.0",
-    "@humeai/voice-react": "^0.2.11",
+    "@humeai/voice-react": "^0.2.0",
     "@mux/mux-player-react": "^3.10.1",
     "@mux/mux-video-react": "^0.29.1",
     "@neondatabase/serverless": "^1.0.2",

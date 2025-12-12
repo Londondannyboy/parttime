@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       first_name: data.first_name || user.displayName?.split(' ')[0] || undefined,
       current_country: data.current_country,
       destination_countries: data.destination_countries,
-      budget: data.budget,
+      budget_monthly: data.budget_monthly || data.budget,
       timeline: data.timeline,
       interests: data.interests,
     })

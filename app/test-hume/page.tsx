@@ -6,11 +6,12 @@ import { VoiceProvider, useVoice } from '@humeai/voice-react'
 const CONFIG_ID = 'd57ceb71-4cf5-47e9-87cd-6052445a031c'
 
 function VoiceTest() {
-  const { connect, disconnect, status, messages, sendSessionSettings } = useVoice()
+  const { connect, disconnect, status, messages, sendSessionSettings, isMuted, mute, unmute } = useVoice()
   const [token, setToken] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [logs, setLogs] = useState<string[]>([])
   const [userName, setUserName] = useState('Dan')
+  const [micPermission, setMicPermission] = useState<string>('unknown')
 
   const log = (msg: string) => {
     console.log(msg)
@@ -34,7 +35,32 @@ function VoiceTest() {
         log('❌ Error fetching token: ' + err.message)
         setError(err.message)
       })
+
+    // Check mic permission
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(() => {
+        log('✅ Microphone permission granted')
+        setMicPermission('granted')
+      })
+      .catch((err) => {
+        log('❌ Microphone error: ' + err.message)
+        setMicPermission('denied: ' + err.message)
+      })
   }, [])
+
+  // Log all incoming messages to catch warnings
+  useEffect(() => {
+    if (messages.length > 0) {
+      const lastMsg = messages[messages.length - 1] as any
+      if (lastMsg.type === 'error' || lastMsg.type === 'warning' || lastMsg.code) {
+        log(`⚠️ MESSAGE: type=${lastMsg.type}, code=${lastMsg.code || 'n/a'}`)
+      }
+      // Log chat_metadata specifically
+      if (lastMsg.type === 'chat_metadata') {
+        log(`📋 chat_metadata received: ${JSON.stringify(lastMsg).slice(0, 100)}...`)
+      }
+    }
+  }, [messages])
 
   // Method 1: Connect WITHOUT sessionSettings (this worked before)
   const handleConnectBasic = async () => {
@@ -58,66 +84,100 @@ function VoiceTest() {
     }
   }
 
-  // Method 2: Connect WITH sessionSettings
+  // Method 2: Connect WITH variables (EXACT format from working relocation app)
   const handleConnectWithVars = async () => {
     if (!token) {
       log('❌ No token available')
       return
     }
 
-    const variables = {
+    // Variables to match system prompt placeholders
+    // Try BOTH 'name' (Hume example) and 'first_name' (your config)
+    const variables: Record<string, string> = {
       is_authenticated: 'true',
-      first_name: userName
+      first_name: userName,
+      name: userName,
+      current_country: 'United Kingdom'
     }
 
-    log('🔄 METHOD 2: Connecting WITH sessionSettings...')
+    // Filter out empty values
+    const filteredVariables = Object.fromEntries(
+      Object.entries(variables).filter(([, v]) => v !== undefined && v !== '')
+    ) as Record<string, string>
+
+    // Build sessionSettings - type IS required by Hume SDK (use 'as const')
+    const sessionSettings = {
+      type: 'session_settings' as const,
+      variables: filteredVariables,
+    }
+
+    log('🔄 METHOD 2: Connecting (relocation app format)...')
     log(`Config ID: ${CONFIG_ID}`)
-    log(`Variables: ${JSON.stringify(variables)}`)
+    log(`SessionSettings: ${JSON.stringify(sessionSettings)}`)
 
     try {
       await connect({
         auth: { type: 'accessToken', value: token },
         configId: CONFIG_ID,
-        sessionSettings: {
-          type: 'session_settings',
-          variables
-        } as any
+        sessionSettings,
       })
-      log('✅ Connected successfully (with vars)!')
+      log('✅ Connected successfully!')
     } catch (err: any) {
       log('❌ Connect error: ' + (err?.message || JSON.stringify(err)))
       setError(err?.message || String(err))
     }
   }
 
-  // Method 3: Connect basic, THEN send sessionSettings after
+  // Method 3: Connect, wait for chat_metadata, THEN send session_settings
   const handleConnectThenSend = async () => {
     if (!token) {
       log('❌ No token available')
       return
     }
 
-    const variables = {
-      is_authenticated: 'true',
-      first_name: userName
-    }
-
-    log('🔄 METHOD 3: Connect basic, then send sessionSettings...')
+    log('🔄 METHOD 3: Connect, wait for chat_metadata, then send variables...')
     log(`Config ID: ${CONFIG_ID}`)
-    log(`Variables: ${JSON.stringify(variables)}`)
+    log(`User name: ${userName}`)
 
     try {
       await connect({
         auth: { type: 'accessToken', value: token },
         configId: CONFIG_ID
       })
-      log('✅ Connected! Now sending sessionSettings...')
+      log('✅ Connected! Waiting for chat_metadata message...')
 
-      // Send session settings after connection (type is added automatically)
-      sendSessionSettings({
-        variables
-      } as any)
-      log('✅ SessionSettings sent!')
+      // Wait for chat_metadata (first message after connection)
+      // Poll the messages array for up to 3 seconds
+      let foundMetadata = false
+      for (let i = 0; i < 30; i++) {
+        await new Promise(resolve => setTimeout(resolve, 100))
+        const hasMetadata = messages.some((m: any) => m.type === 'chat_metadata')
+        if (hasMetadata) {
+          foundMetadata = true
+          log('✅ Received chat_metadata!')
+          break
+        }
+      }
+
+      if (!foundMetadata) {
+        log('⚠️ No chat_metadata received, sending anyway...')
+      }
+
+      // Send session_settings message with EXPLICIT type field
+      // This is the exact format from Hume docs
+      const settings = {
+        type: 'session_settings' as const,
+        variables: {
+          first_name: userName,
+          is_authenticated: 'true',
+          current_country: 'United Kingdom'
+        }
+      }
+      log(`Sending: ${JSON.stringify(settings)}`)
+
+      // Note: sendSessionSettings might strip the type, so log what we're sending
+      sendSessionSettings(settings as any)
+      log('✅ Session settings sent! Check for W0106 warning...')
     } catch (err: any) {
       log('❌ Connect error: ' + (err?.message || JSON.stringify(err)))
       setError(err?.message || String(err))
@@ -143,6 +203,8 @@ function VoiceTest() {
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div>Connection: <span className={`font-mono ${status.value === 'connected' ? 'text-green-400' : 'text-red-400'}`}>{status.value}</span></div>
             <div>Token: <span className="font-mono">{token ? '✅ Ready' : '⏳ Loading...'}</span></div>
+            <div>Microphone: <span className={`font-mono ${micPermission === 'granted' ? 'text-green-400' : 'text-red-400'}`}>{micPermission}</span></div>
+            <div>Muted: <span className={`font-mono ${isMuted ? 'text-yellow-400' : 'text-green-400'}`}>{isMuted ? 'YES' : 'NO'}</span></div>
             <div>Config: <span className="font-mono text-xs">{CONFIG_ID}</span></div>
             <div>Messages: <span className="font-mono">{messages.length}</span></div>
           </div>
