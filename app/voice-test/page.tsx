@@ -88,7 +88,7 @@ function VoiceTestWidget() {
 
     const sessionSettings = {
       type: 'session_settings' as const,
-      variables: testVars as Record<string, string>
+      variables: { ...testVars }
     }
 
     try {
