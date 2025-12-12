@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, useCallback } from 'react'
 
 interface GraphNode {
   id: string
-  type: 'user' | 'skill' | 'job' | 'company' | 'preference'
+  type: 'user' | 'skill' | 'job' | 'company' | 'preference' | 'fact'
   label: string
   data?: Record<string, unknown>
   // Computed during layout
@@ -42,6 +42,7 @@ const NODE_COLORS: Record<string, string> = {
   job: '#10B981',       // green
   company: '#F59E0B',   // amber
   preference: '#EC4899', // pink
+  fact: '#6366F1',      // indigo - for Zep facts
 }
 
 // Node sizes
@@ -51,6 +52,7 @@ const NODE_SIZES: Record<string, number> = {
   job: 22,
   company: 20,
   preference: 16,
+  fact: 14,
 }
 
 export function KnowledgeGraph({
@@ -384,6 +386,8 @@ function getNodeIcon(type: string): string {
       return '🏢'
     case 'preference':
       return '⚙️'
+    case 'fact':
+      return '📝'
     default:
       return '•'
   }

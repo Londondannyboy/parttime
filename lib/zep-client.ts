@@ -236,7 +236,8 @@ export async function getUserGraphNodes(userId: string): Promise<ZepNode[]> {
 
   try {
     const response = await client.graph.node.getByUserId(userId, {})
-    return (response.nodes || []) as ZepNode[]
+    // Response is the array directly, not an object with nodes property
+    return (response || []) as ZepNode[]
   } catch (error) {
     console.error('Error getting user graph nodes:', error)
     return []
@@ -252,7 +253,8 @@ export async function getUserGraphEdges(userId: string): Promise<ZepEdge[]> {
 
   try {
     const response = await client.graph.edge.getByUserId(userId, {})
-    return (response.edges || []) as ZepEdge[]
+    // Response is the array directly, not an object with edges property
+    return (response || []) as ZepEdge[]
   } catch (error) {
     console.error('Error getting user graph edges:', error)
     return []

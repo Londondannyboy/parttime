@@ -5,7 +5,7 @@ import { KnowledgeGraph } from './KnowledgeGraph'
 
 interface GraphNode {
   id: string
-  type: 'user' | 'skill' | 'job' | 'company' | 'preference'
+  type: 'user' | 'skill' | 'job' | 'company' | 'preference' | 'fact'
   label: string
   data?: Record<string, unknown>
 }

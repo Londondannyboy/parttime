@@ -5,7 +5,7 @@ import { KnowledgeGraph } from './KnowledgeGraph'
 
 interface GraphNode {
   id: string
-  type: 'user' | 'skill' | 'job' | 'company' | 'preference'
+  type: 'user' | 'skill' | 'job' | 'company' | 'preference' | 'fact'
   label: string
   data?: Record<string, unknown>
 }
@@ -28,6 +28,8 @@ interface GraphStats {
   companyCount: number
   preferenceCount: number
   matchedJobCount: number
+  nodeCount?: number
+  edgeCount?: number
 }
 
 interface UserGraphProps {
@@ -38,6 +40,7 @@ interface UserGraphProps {
 export function UserGraph({ userId, refreshTrigger = 0 }: UserGraphProps) {
   const [data, setData] = useState<GraphData | null>(null)
   const [stats, setStats] = useState<GraphStats | null>(null)
+  const [source, setSource] = useState<'zep' | 'local' | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -55,6 +58,7 @@ export function UserGraph({ userId, refreshTrigger = 0 }: UserGraphProps) {
         const result = await response.json()
         setData(result.graph)
         setStats(result.stats)
+        setSource(result.source || 'local')
       } catch (err) {
         console.error('Error fetching user graph:', err)
         setError('Could not load your knowledge graph')
@@ -120,25 +124,47 @@ export function UserGraph({ userId, refreshTrigger = 0 }: UserGraphProps) {
     <div className="bg-white rounded-xl border border-gray-200 p-6">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900">Your Knowledge Graph</h3>
+          <div className="flex items-center gap-2">
+            <h3 className="text-lg font-semibold text-gray-900">Your Knowledge Graph</h3>
+            {source === 'zep' && (
+              <span className="px-2 py-0.5 text-xs font-medium bg-purple-100 text-purple-700 rounded-full">
+                Zep Cloud
+              </span>
+            )}
+          </div>
           <p className="text-sm text-gray-500">
             Visual map of your skills, experience, and opportunities
           </p>
         </div>
         {stats && (
           <div className="flex gap-4 text-sm">
-            <div className="text-center">
-              <span className="font-semibold text-blue-600">{stats.skillCount}</span>
-              <p className="text-gray-500 text-xs">Skills</p>
-            </div>
-            <div className="text-center">
-              <span className="font-semibold text-amber-600">{stats.companyCount}</span>
-              <p className="text-gray-500 text-xs">Companies</p>
-            </div>
-            <div className="text-center">
-              <span className="font-semibold text-green-600">{stats.matchedJobCount}</span>
-              <p className="text-gray-500 text-xs">Matches</p>
-            </div>
+            {source === 'zep' ? (
+              <>
+                <div className="text-center">
+                  <span className="font-semibold text-purple-600">{stats.nodeCount || 0}</span>
+                  <p className="text-gray-500 text-xs">Entities</p>
+                </div>
+                <div className="text-center">
+                  <span className="font-semibold text-blue-600">{stats.edgeCount || 0}</span>
+                  <p className="text-gray-500 text-xs">Facts</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="text-center">
+                  <span className="font-semibold text-blue-600">{stats.skillCount}</span>
+                  <p className="text-gray-500 text-xs">Skills</p>
+                </div>
+                <div className="text-center">
+                  <span className="font-semibold text-amber-600">{stats.companyCount}</span>
+                  <p className="text-gray-500 text-xs">Companies</p>
+                </div>
+                <div className="text-center">
+                  <span className="font-semibold text-green-600">{stats.matchedJobCount}</span>
+                  <p className="text-gray-500 text-xs">Matches</p>
+                </div>
+              </>
+            )}
           </div>
         )}
       </div>
@@ -153,7 +179,11 @@ export function UserGraph({ userId, refreshTrigger = 0 }: UserGraphProps) {
       />
 
       <div className="mt-4 text-xs text-gray-400 text-center">
-        Click on nodes to see details • Hover to highlight connections
+        {source === 'zep' ? (
+          'Powered by Zep Knowledge Graph • Click nodes for details'
+        ) : (
+          'Click on nodes to see details • Hover to highlight connections'
+        )}
       </div>
     </div>
   )
