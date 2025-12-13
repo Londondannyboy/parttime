@@ -10,15 +10,15 @@ interface CompanyLogoProps {
 }
 
 const sizeClasses = {
-  sm: 'w-12 h-12',
-  md: 'w-16 h-16',
-  lg: 'w-24 h-24',
+  sm: 'w-14 h-14',
+  md: 'w-20 h-20',
+  lg: 'w-28 h-28',
 }
 
-const initialSizeClasses = {
-  sm: 'text-xl',
-  md: 'text-2xl',
-  lg: 'text-4xl',
+const iconSizeClasses = {
+  sm: 'w-7 h-7',
+  md: 'w-10 h-10',
+  lg: 'w-14 h-14',
 }
 
 export function CompanyLogo({
@@ -37,20 +37,31 @@ export function CompanyLogo({
     : null
 
   return (
-    <div className={`flex-shrink-0 ${sizeClasses[size]} rounded-lg overflow-hidden bg-white border border-gray-100 ${className}`}>
+    <div className={`flex-shrink-0 ${sizeClasses[size]} rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm ${className}`}>
       {logoUrl && !showFallback && (
         <img
           src={logoUrl}
           alt={`${companyName} logo`}
-          className="w-full h-full object-contain p-1.5"
+          className="w-full h-full object-contain p-2"
           onError={() => setImageError(true)}
         />
       )}
       {showFallback && (
-        <div className="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
-          <span className={`${initialSizeClasses[size]} font-bold text-purple-700`}>
-            {companyName.charAt(0).toUpperCase()}
-          </span>
+        <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+          {/* Building/Company icon as fallback */}
+          <svg
+            className={`${iconSizeClasses[size]} text-purple-600`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+            />
+          </svg>
         </div>
       )}
     </div>
@@ -75,20 +86,31 @@ export function CompanyLogoLarge({
     : null
 
   return (
-    <div className="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden bg-white border-4 border-white/20 shadow-xl">
+    <div className="flex-shrink-0 w-28 h-28 rounded-2xl overflow-hidden bg-white border-4 border-white/20 shadow-xl">
       {logoUrl && !showFallback && (
         <img
           src={logoUrl}
           alt={`${companyName} logo`}
-          className="w-full h-full object-contain p-2"
+          className="w-full h-full object-contain p-3"
           onError={() => setImageError(true)}
         />
       )}
       {showFallback && (
-        <div className="w-full h-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
-          <span className="text-4xl font-bold text-white">
-            {companyName.charAt(0).toUpperCase()}
-          </span>
+        <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+          {/* Building/Company icon as fallback */}
+          <svg
+            className="w-14 h-14 text-purple-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+            />
+          </svg>
         </div>
       )}
     </div>
