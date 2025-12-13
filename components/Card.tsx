@@ -9,7 +9,7 @@ export function Card({ hoverable = false, className = '', children, ...props }: 
     <div
       className={`
         bg-white rounded-xl border border-gray-200 shadow-sm p-6
-        ${hoverable ? 'hover:shadow-md hover:border-purple-200 transition-all duration-200 cursor-pointer' : ''}
+        ${hoverable ? 'hover:shadow-md hover:border-gray-300 transition-all duration-200 cursor-pointer' : ''}
         ${className}
       `}
       {...props}

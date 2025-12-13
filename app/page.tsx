@@ -13,8 +13,9 @@ import { LatestNews } from "@/components/RoleNews";
 const HERO_VIDEO_PLAYBACK_ID: string | undefined = "qIS6PGKxIZyzjrDBzxQuqPRBOhHofDnXq1chdsqAY9Y";
 
 export const metadata: Metadata = {
-  title: "Fractional Executive Services UK | Hire Fractional CFO, CMO, CTO",
-  description: "Hire fractional executives for your business. Access senior CFO, CMO, CTO leadership at a fraction of full-time cost. UK's marketplace for fractional executive services.",
+  title: "Fractional Jobs UK | Fractional Executive Jobs & Services Platform",
+  description: "UK's marketplace for fractional jobs and executive services. Find fractional CFO, CMO, CTO roles or hire fractional executives for your business. Browse fractional executive jobs and fractional services.",
+  keywords: "fractional jobs, fractional jobs uk, fractional executive jobs, fractional services, fractional cfo roles, fractional roles uk, remote fractional jobs, fractional c-suite recruitment",
   alternates: {
     canonical: "https://fractional.quest",
   },
@@ -206,8 +207,8 @@ export default async function Home() {
   const jobPostingJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Fractional Executive Jobs UK",
-    description: `Browse ${totalJobs}+ fractional executive jobs in the UK including CFO, CTO, CMO, and COO roles`,
+    name: "Fractional Jobs UK - Fractional Executive Jobs & Services",
+    description: `Browse ${totalJobs}+ fractional jobs in the UK. Find fractional executive jobs including CFO, CTO, CMO, COO roles or access fractional services for your business.`,
     numberOfItems: totalJobs,
     itemListElement: featuredJobs.slice(0, 3).map((job: any, index: number) => ({
       "@type": "ListItem",
@@ -257,38 +258,42 @@ export default async function Home() {
               <div className="max-w-2xl">
                 <div className="bg-black/40 backdrop-blur-md rounded-2xl p-6 md:p-10 border border-white/10">
                   <span className="inline-block bg-emerald-500/20 backdrop-blur text-emerald-300 px-4 py-1.5 rounded-full text-xs font-medium uppercase tracking-wider mb-6">
-                    UK's Fractional Executive Marketplace
+                    UK's Fractional Jobs & Services Platform
                   </span>
 
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-[1.1]">
-                    Hire Fractional<br />Executives
+                    Fractional Jobs UK
                   </h1>
+
+                  <p className="text-xl md:text-2xl text-emerald-400 font-semibold mb-4">
+                    Executive Jobs & Fractional Services Marketplace
+                  </p>
 
                   {/* Hidden image for SEO - contains keyword in alt text */}
                   <img
                     src="/logo.svg"
-                    alt="Hire fractional executives UK - CFO CMO CTO services"
+                    alt="Fractional jobs UK - fractional executive jobs and services"
                     className="sr-only"
                     aria-hidden="true"
                   />
 
                   <p className="text-lg text-white/70 mb-8 leading-relaxed">
-                    Access senior CFO, CMO, CTO leadership at a fraction of full-time cost.
-                    Start within days, not months.
+                    Find fractional executive jobs or hire fractional CFO, CMO, CTO leadership.
+                    Browse roles or access services—start within days.
                   </p>
 
                   <div className="flex flex-wrap gap-3">
                     <Link
-                      href="#services"
+                      href="/fractional-jobs"
                       className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-lg bg-emerald-500 text-black hover:bg-emerald-400 transition-all duration-200"
                     >
-                      Find a Fractional Executive →
+                      Browse Fractional Jobs →
                     </Link>
                     <Link
-                      href="/fractional-jobs"
+                      href="/fractional-services"
                       className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-lg bg-white/10 backdrop-blur border border-white/20 text-white hover:bg-white/20 transition-all duration-200"
                     >
-                      I'm an Executive
+                      Hire Fractional Executives
                     </Link>
                   </div>
                 </div>
@@ -362,6 +367,7 @@ export default async function Home() {
             playbackId={HERO_VIDEO_PLAYBACK_ID}
             fallbackGradient={true}
           />
+          <div className="absolute inset-0 bg-white/75" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center mb-16">
@@ -562,6 +568,7 @@ export default async function Home() {
             playbackId={HERO_VIDEO_PLAYBACK_ID}
             fallbackGradient={true}
           />
+          <div className="absolute inset-0 bg-black/50" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -577,8 +584,8 @@ export default async function Home() {
         <section className="py-20 md:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Current Fractional Opportunities</h2>
-              <p className="text-xl text-gray-600">Real fractional roles from verified sources</p>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Latest Fractional Jobs UK</h2>
+              <p className="text-xl text-gray-600">Browse fractional executive jobs from verified UK sources</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {(featuredJobs as any[]).map((job: any) => {
@@ -755,6 +762,7 @@ export default async function Home() {
             playbackId={HERO_VIDEO_PLAYBACK_ID}
             fallbackGradient={true}
           />
+          <div className="absolute inset-0 bg-black/50" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">

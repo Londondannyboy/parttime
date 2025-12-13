@@ -14,17 +14,17 @@ export function Badge({ variant = 'primary', size = 'md', role, className = '', 
   const effectiveVariant = role ? getRoleVariant(role) : variant
 
   const variantStyles = {
-    primary: 'bg-purple-100 text-purple-800',
+    primary: 'bg-gray-200 text-gray-800',
     success: 'bg-green-100 text-green-800',
     warning: 'bg-amber-100 text-amber-800',
     error: 'bg-red-100 text-red-800',
     gray: 'bg-gray-100 text-gray-800',
-    cfo: 'bg-emerald-100 text-emerald-800', // CFO - Green
-    cmo: 'bg-pink-100 text-pink-800', // CMO - Pink
-    cto: 'bg-blue-100 text-blue-800', // CTO - Blue
-    coo: 'bg-amber-100 text-amber-800', // COO - Amber
-    hr: 'bg-violet-100 text-violet-800', // HR - Violet
-    sales: 'bg-cyan-100 text-cyan-800', // Sales - Cyan
+    cfo: 'bg-gray-200 text-gray-800', // CFO
+    cmo: 'bg-gray-200 text-gray-800', // CMO
+    cto: 'bg-gray-200 text-gray-800', // CTO
+    coo: 'bg-gray-200 text-gray-800', // COO
+    hr: 'bg-gray-200 text-gray-800', // HR
+    sales: 'bg-gray-200 text-gray-800', // Sales
   }
 
   const sizeStyles = {

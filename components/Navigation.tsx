@@ -20,6 +20,7 @@ export function Navigation() {
 
   const navLinks = [
     { href: '/voice-test', label: 'Repo' },
+    { href: '/fractional-services', label: 'Services' },
     { href: '/fractional-jobs', label: 'Fractional Jobs' },
     { href: '/fractional-jobs-articles', label: 'Knowledge Base' }
   ]
@@ -37,12 +38,12 @@ export function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-700 to-purple-900 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+            <div className="w-10 h-10 bg-gradient-to-br from-gray-800 to-black rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
               <span className="text-white font-black text-xl">F</span>
             </div>
             <div className="hidden sm:block">
               <span className="font-bold text-gray-900 text-lg">Fractional</span>
-              <span className="text-purple-600 font-bold text-lg">.Quest</span>
+              <span className="text-gray-600 font-bold text-lg">.Quest</span>
             </div>
           </Link>
 
@@ -66,8 +67,8 @@ export function Navigation() {
               href="/fractional-jobs"
               className={`md:hidden px-3 py-2 rounded-lg font-semibold text-sm transition-colors ${
                 isActive('/fractional-jobs')
-                  ? 'bg-purple-100 text-purple-800'
-                  : 'text-purple-700 hover:bg-purple-50'
+                  ? 'bg-gray-200 text-gray-900'
+                  : 'text-gray-700 hover:bg-gray-100'
               }`}
             >
               Jobs
@@ -112,7 +113,7 @@ export function Navigation() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`px-4 py-3 rounded-lg font-medium transition-colors ${
                     isActive(link.href)
-                      ? 'bg-purple-50 text-purple-800'
+                      ? 'bg-gray-100 text-gray-900'
                       : 'text-gray-600 hover:bg-gray-50'
                   }`}
                 >
