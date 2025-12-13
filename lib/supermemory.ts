@@ -2,10 +2,12 @@
  * Supermemory Integration for Conversational Context
  *
  * Provides persistent memory for conversations with Repo voice agent.
- * Memories are stored per user and can be searched semantically.
+ * Memories are stored per user (containerTag) and can be searched semantically.
+ *
+ * Using Supermemory v3 API
  */
 
-const SUPERMEMORY_API_URL = 'https://api.supermemory.ai/v1'
+const SUPERMEMORY_API_URL = 'https://api.supermemory.ai/v3'
 
 interface Memory {
   id: string
@@ -16,7 +18,7 @@ interface Memory {
 
 interface AddMemoryResponse {
   id: string
-  success: boolean
+  status: string
 }
 
 interface SearchResult {
@@ -34,7 +36,8 @@ class SupermemoryClient {
   }
 
   /**
-   * Add a memory for a user
+   * Add a document/memory for a user (v3 API)
+   * Uses containerTag to group memories by user
    */
   async addMemory(
     userId: string,
@@ -44,7 +47,8 @@ class SupermemoryClient {
     console.log('[Supermemory] addMemory called for user:', userId)
     console.log('[Supermemory] Content preview:', content.substring(0, 100))
 
-    const response = await fetch(`${SUPERMEMORY_API_URL}/memories`, {
+    // v3 API uses /documents endpoint with containerTag
+    const response = await fetch(`${SUPERMEMORY_API_URL}/documents`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${this.apiKey}`,
@@ -52,7 +56,7 @@ class SupermemoryClient {
       },
       body: JSON.stringify({
         content,
-        userId,
+        containerTag: userId,  // v3 uses containerTag instead of userId
         metadata: {
           ...metadata,
           source: 'fractional-quest',
@@ -70,69 +74,73 @@ class SupermemoryClient {
     }
 
     const result = await response.json()
-    console.log('[Supermemory] Add SUCCESS, id:', result.id)
+    console.log('[Supermemory] Add SUCCESS, id:', result.id, 'status:', result.status)
     return result
   }
 
   /**
-   * Search memories for a user
+   * Search memories for a user (v3 API)
    */
   async searchMemories(
     userId: string,
     query: string,
     limit = 10
   ): Promise<SearchResult[]> {
-    const response = await fetch(`${SUPERMEMORY_API_URL}/memories/search`, {
+    const response = await fetch(`${SUPERMEMORY_API_URL}/search`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${this.apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        query,
-        userId,
+        q: query,
+        containerTag: userId,  // v3 uses containerTag
+        topK: limit,
+      }),
+    })
+
+    if (!response.ok) {
+      const error = await response.text()
+      console.error('[Supermemory] Search error:', response.status, error)
+      throw new Error(`Failed to search memories: ${error}`)
+    }
+
+    const data = await response.json()
+    console.log('[Supermemory] Search returned', data.results?.length || 0, 'results')
+    return data.results || []
+  }
+
+  /**
+   * List documents for a user (v3 API)
+   */
+  async getMemories(userId: string, limit = 50): Promise<Memory[]> {
+    const response = await fetch(`${SUPERMEMORY_API_URL}/documents/list`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        containerTag: userId,
         limit,
       }),
     })
 
     if (!response.ok) {
       const error = await response.text()
-      console.error('Supermemory search error:', error)
-      throw new Error(`Failed to search memories: ${error}`)
-    }
-
-    const data = await response.json()
-    return data.results || []
-  }
-
-  /**
-   * Get all memories for a user
-   */
-  async getMemories(userId: string, limit = 50): Promise<Memory[]> {
-    const response = await fetch(
-      `${SUPERMEMORY_API_URL}/memories?userId=${encodeURIComponent(userId)}&limit=${limit}`,
-      {
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-        },
-      }
-    )
-
-    if (!response.ok) {
-      const error = await response.text()
-      console.error('Supermemory get error:', error)
+      console.error('[Supermemory] List error:', response.status, error)
       throw new Error(`Failed to get memories: ${error}`)
     }
 
     const data = await response.json()
-    return data.memories || []
+    return data.documents || data.memories || []
   }
 
   /**
-   * Delete a memory
+   * Delete a document (v3 API)
    */
   async deleteMemory(memoryId: string): Promise<void> {
-    const response = await fetch(`${SUPERMEMORY_API_URL}/memories/${memoryId}`, {
+    const response = await fetch(`${SUPERMEMORY_API_URL}/documents/${memoryId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${this.apiKey}`,
@@ -141,7 +149,7 @@ class SupermemoryClient {
 
     if (!response.ok) {
       const error = await response.text()
-      console.error('Supermemory delete error:', error)
+      console.error('[Supermemory] Delete error:', response.status, error)
       throw new Error(`Failed to delete memory: ${error}`)
     }
   }
