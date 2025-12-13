@@ -11,6 +11,22 @@ interface CompanyPageProps {
   params: Promise<{ domain: string }>
 }
 
+interface BrandColor {
+  hex: string
+  type: string
+  brightness: number
+}
+
+interface BrandData {
+  colors: BrandColor[]
+  logos: Record<string, string>
+  description: string | null
+  founded: number | null
+  employees: number | null
+  industries: string[] | null
+  quality_score: string | null
+}
+
 // Generate metadata for SEO
 export async function generateMetadata({ params }: CompanyPageProps): Promise<Metadata> {
   const { domain } = await params
@@ -56,6 +72,14 @@ async function getCompanyData(domain: string) {
     return null
   }
 
+  // Get brand data if available
+  const [brandData] = await sql`
+    SELECT colors, logos, description, founded, employees, industries, quality_score
+    FROM company_brands
+    WHERE domain = ${domain}
+    LIMIT 1
+  `
+
   // Get company stats
   const companyName = jobs[0].company_name
   const roleCategories = [...new Set(jobs.map((j: any) => j.role_category).filter(Boolean))]
@@ -69,7 +93,35 @@ async function getCompanyData(domain: string) {
       totalJobs: jobs.length,
       roleCategories,
       locations,
+    },
+    brand: brandData as BrandData | undefined
+  }
+}
+
+// Helper to get the best header color from brand colors
+function getHeaderColors(brand?: BrandData) {
+  if (!brand?.colors || brand.colors.length === 0) {
+    return {
+      backgroundColor: '#1f2937', // gray-800 fallback
+      textColor: 'white',
+      accentColor: '#a855f7' // purple-500
     }
+  }
+
+  // Find the dark color for background (prefer type 'dark' or lowest brightness)
+  const darkColor = brand.colors.find(c => c.type === 'dark')
+    || brand.colors.reduce((darkest, c) => c.brightness < darkest.brightness ? c : darkest)
+
+  // Find accent color
+  const accentColor = brand.colors.find(c => c.type === 'accent')?.hex || '#a855f7'
+
+  // Determine text color based on background brightness
+  const textColor = darkColor.brightness < 128 ? 'white' : '#1f2937'
+
+  return {
+    backgroundColor: darkColor.hex,
+    textColor,
+    accentColor
   }
 }
 
@@ -81,36 +133,93 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
     notFound()
   }
 
+  const { backgroundColor, textColor, accentColor } = getHeaderColors(company.brand)
+  const textOpacity = textColor === 'white' ? 'text-white/70' : 'text-gray-600'
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Company Header */}
-      <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+      {/* Company Header - Uses brand colors */}
+      <section
+        style={{ backgroundColor }}
+        className="transition-colors"
+      >
         <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16">
           <Link
             href="/fractional-jobs"
-            className="inline-flex items-center text-white/70 hover:text-white mb-8 transition-colors text-sm"
+            className={`inline-flex items-center ${textOpacity} hover:opacity-100 mb-8 transition-colors text-sm`}
+            style={{ color: textColor }}
           >
             <span className="mr-2">&larr;</span> Back to Jobs
           </Link>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-start gap-6">
             {/* Company Logo */}
             <CompanyLogoLarge
               companyDomain={domain}
               companyName={company.name}
             />
 
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-2">{company.name}</h1>
-              <p className="text-white/70 text-lg">
-                {company.stats.totalJobs} open {company.stats.totalJobs === 1 ? 'position' : 'positions'}
-              </p>
+            <div className="flex-1">
+              <h1
+                className="text-4xl md:text-5xl font-bold mb-2"
+                style={{ color: textColor }}
+              >
+                {company.name}
+              </h1>
+
+              {/* Company description from brand data */}
+              {company.brand?.description && (
+                <p
+                  className="text-lg mb-3 max-w-2xl"
+                  style={{ color: textColor, opacity: 0.8 }}
+                >
+                  {company.brand.description}
+                </p>
+              )}
+
+              <div className="flex flex-wrap items-center gap-4 mb-3">
+                <span style={{ color: textColor, opacity: 0.7 }}>
+                  {company.stats.totalJobs} open {company.stats.totalJobs === 1 ? 'position' : 'positions'}
+                </span>
+
+                {company.brand?.founded && (
+                  <span style={{ color: textColor, opacity: 0.7 }}>
+                    Founded {company.brand.founded}
+                  </span>
+                )}
+
+                {company.brand?.employees && (
+                  <span style={{ color: textColor, opacity: 0.7 }}>
+                    {company.brand.employees.toLocaleString()}+ employees
+                  </span>
+                )}
+              </div>
+
+              {/* Industry tags */}
+              {company.brand?.industries && company.brand.industries.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {company.brand.industries.slice(0, 3).map((industry: string) => (
+                    <span
+                      key={industry}
+                      className="px-3 py-1 rounded-full text-sm font-medium"
+                      style={{
+                        backgroundColor: accentColor,
+                        color: 'white'
+                      }}
+                    >
+                      {industry}
+                    </span>
+                  ))}
+                </div>
+              )}
+
               {company.domain && (
                 <a
                   href={`https://${company.domain}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-purple-300 hover:text-purple-200 mt-2 text-sm"
+                  className="inline-flex items-center gap-1 text-sm hover:opacity-80 transition-opacity"
+                  style={{ color: accentColor }}
                 >
                   {company.domain}
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -123,25 +232,37 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
-            <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-              <div className="text-3xl font-bold">{company.stats.totalJobs}</div>
-              <div className="text-white/60 text-sm">Open Roles</div>
+            <div
+              className="backdrop-blur rounded-lg p-4"
+              style={{ backgroundColor: `${textColor === 'white' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}` }}
+            >
+              <div className="text-3xl font-bold" style={{ color: textColor }}>{company.stats.totalJobs}</div>
+              <div style={{ color: textColor, opacity: 0.6 }} className="text-sm">Open Roles</div>
             </div>
-            <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-              <div className="text-3xl font-bold">{company.stats.roleCategories.length}</div>
-              <div className="text-white/60 text-sm">Departments</div>
+            <div
+              className="backdrop-blur rounded-lg p-4"
+              style={{ backgroundColor: `${textColor === 'white' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}` }}
+            >
+              <div className="text-3xl font-bold" style={{ color: textColor }}>{company.stats.roleCategories.length}</div>
+              <div style={{ color: textColor, opacity: 0.6 }} className="text-sm">Departments</div>
             </div>
-            <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-              <div className="text-3xl font-bold">{company.stats.locations.length}</div>
-              <div className="text-white/60 text-sm">Locations</div>
+            <div
+              className="backdrop-blur rounded-lg p-4"
+              style={{ backgroundColor: `${textColor === 'white' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}` }}
+            >
+              <div className="text-3xl font-bold" style={{ color: textColor }}>{company.stats.locations.length}</div>
+              <div style={{ color: textColor, opacity: 0.6 }} className="text-sm">Locations</div>
             </div>
-            <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+            <div
+              className="backdrop-blur rounded-lg p-4"
+              style={{ backgroundColor: `${textColor === 'white' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}` }}
+            >
               <div className="text-3xl font-bold flex items-center gap-1">
-                <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-6 h-6" style={{ color: accentColor }} fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
-              <div className="text-white/60 text-sm">Verified Company</div>
+              <div style={{ color: textColor, opacity: 0.6 }} className="text-sm">Verified Company</div>
             </div>
           </div>
         </div>
