@@ -187,8 +187,9 @@ function VoiceInterface({ token, userId, profile, memoryContext }: {
     )
 
     for (const toolMsg of toolResponses) {
-      const content = toolMsg.content || toolMsg.message?.content || ''
-      const toolId = toolMsg.tool_call_id || `${messages.indexOf(toolMsg)}`
+      const msg = toolMsg as any
+      const content = msg.content || msg.message?.content || ''
+      const toolId = msg.tool_call_id || `${messages.indexOf(toolMsg)}`
 
       // Skip if we've already processed this tool response
       if (processedToolCalls.current.has(toolId)) continue
