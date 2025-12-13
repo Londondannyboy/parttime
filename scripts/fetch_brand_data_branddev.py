@@ -73,7 +73,7 @@ def get_companies_without_brands(conn, limit: int = 10, provider: str = 'brandde
 
 async def fetch_brand_from_branddev(domain: str, api_key: str) -> Optional[dict]:
     """Fetch brand data from Brand.dev API"""
-    url = f"https://api.brand.dev/v1/brand?domain={domain}"
+    url = f"https://api.brand.dev/v1/brand/retrieve?domain={domain}"
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"

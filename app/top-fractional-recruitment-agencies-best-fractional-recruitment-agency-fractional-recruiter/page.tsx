@@ -49,8 +49,8 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
                 </span>
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-[0.95] tracking-tight">
-                  Fractional Recruitment Agency<br />
-                  <span className="text-amber-400">Done Differently</span>
+                  Fractional Recruitment Agency{' '}
+                  <span className="block text-amber-400">Done Differently</span>
                 </h1>
 
                 <p className="text-xl text-white/80 leading-relaxed max-w-xl mb-8">
