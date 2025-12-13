@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import { createDbQuery } from '@/lib/db'
 import { JobCard } from '@/components/JobCard'
 import { JobFilters } from '@/components/JobFilters'
-import { JobsGraph } from '@/components/JobsGraph'
+import { JobsGraph3D } from '@/components/JobsGraph3D'
 import { VideoHeroBackground } from '@/components/VideoHeroBackground'
 
 // Same video as homepage
@@ -368,22 +368,30 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
           </div>
         </section>
 
-        {/* Jobs Knowledge Graph Section */}
-        <section className="py-20 md:py-28 bg-gray-50">
+        {/* Jobs Knowledge Graph Section - 3D Interactive */}
+        <section className="py-20 md:py-28 bg-gray-950">
           <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-12">
-              <span className="text-xs font-medium uppercase tracking-[0.3em] text-gray-400 mb-4 block">Visualize</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Jobs Knowledge Graph</h2>
-              <p className="text-lg text-gray-500">
-                Explore relationships between jobs, skills, and companies
+              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-sm text-gray-400 mb-4">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                Interactive 3D Network
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Jobs Knowledge Graph</h2>
+              <p className="text-lg text-gray-400">
+                Explore relationships between jobs, skills, and companies in 3D
               </p>
             </div>
             <Suspense fallback={
-              <div className="bg-white rounded-xl border border-gray-200 p-6 flex items-center justify-center h-[450px]">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600" />
+              <div className="rounded-xl p-6 flex items-center justify-center h-[550px]" style={{ background: 'radial-gradient(ellipse at center, #111827 0%, #030712 100%)' }}>
+                <div className="text-center">
+                  <div className="w-12 h-12 border-4 border-gray-600/30 border-t-gray-400 rounded-full animate-spin mx-auto mb-4" />
+                  <p className="text-gray-400 text-sm">Loading 3D network...</p>
+                </div>
               </div>
             }>
-              <JobsGraph roleFilter={roleFilter} limit={15} />
+              <JobsGraph3D roleFilter={roleFilter} limit={20} height="550px" />
             </Suspense>
           </div>
         </section>
