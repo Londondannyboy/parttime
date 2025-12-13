@@ -49,7 +49,7 @@ class StructuredJob(BaseModel):
     # Categorization
     vertical: str = Field(description="Industry vertical: Technology, Finance, Healthcare, Professional Services, E-commerce, Manufacturing, Recruitment, Consulting, Media, Retail, etc.")
     seniority_level: str = Field(description="One of: Executive, Senior, Mid-Senior, Associate, Entry")
-    role_category: Optional[str] = Field(default=None, description="CFO, CMO, CTO, COO, HR Director, Sales Director, CEO, Managing Director, or specific role type")
+    role_category: str = Field(description="MUST be one of these exact values: CFO, CMO, CTO, COO, HR, Sales, Other. Map finance/accounting roles to CFO, marketing roles to CMO, technology/engineering roles to CTO, operations/project roles to COO, people/HR roles to HR, business development/sales roles to Sales. Use 'Other' only if no category fits.")
 
     # Compensation
     salary_min: Optional[int] = Field(default=None, description="Minimum salary/day rate as integer (no currency symbol)")
@@ -178,6 +178,16 @@ Your role is to transform raw job postings into beautifully crafted, editorially
 - Extract skills throughout the description, not just from requirements
 - Normalize locations properly (London, not "London, England, United Kingdom")
 - Identify the true seniority - "Fractional CFO" is Executive level
+
+**CRITICAL - Role Category Classification:**
+role_category MUST be exactly one of: CFO, CMO, CTO, COO, HR, Sales, Other
+- CFO: Finance Directors, Financial Controllers, Accounting, Treasury, FP&A
+- CMO: Marketing Directors, Brand, Growth, Demand Gen, Communications
+- CTO: Tech Directors, Engineering Leads, AI/ML, Product Tech, VP Engineering
+- COO: Operations Directors, Project/Programme Managers, Chief of Staff, MD
+- HR: People Directors, Talent, L&D, HR Business Partners
+- Sales: Sales Directors, Revenue, Business Development, Partnerships
+- Other: Only if nothing else fits (rare)
 
 **Quality Standards:**
 - Every listing should read like it belongs in a premium publication

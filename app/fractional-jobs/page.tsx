@@ -48,6 +48,7 @@ const FRACTIONAL_ROLES: FilterOption[] = [
   { value: 'COO', label: 'Fractional COO' },
   { value: 'Sales', label: 'Fractional Sales' },
   { value: 'HR', label: 'Fractional HR' },
+  { value: 'Other', label: 'Other Roles' },
 ]
 
 // Map database role_category values to fractional categories
@@ -56,8 +57,9 @@ const ROLE_CATEGORY_MAPPING: Record<string, string[]> = {
   'CMO': ['CMO', 'Marketing Director', 'Marketing Manager', 'Advertising', 'Advertising Strategist'],
   'CTO': ['CTO', 'Head of AI', 'AI Director', 'Engineering and Information Technology', 'Software Engineering Coach'],
   'COO': ['COO', 'Managing Director', 'Programme Manager', 'Project Manager', 'Chief of Staff'],
-  'Sales': ['Sales Director', 'Business Consultant', 'Client Success Manager'],
+  'Sales': ['Sales', 'Sales Director', 'Business Consultant', 'Client Success Manager'],
   'HR': ['HR', 'HR Director', 'People Director'],
+  'Other': ['Other'],
 }
 
 // Fetch filter options from database
