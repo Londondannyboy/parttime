@@ -82,7 +82,8 @@ export default function RepoBuilder({ userId, voiceTranscript, onPreferenceSaved
     setIsExtracting(true)
 
     try {
-      const response = await fetch('/api/extract-preferences', {
+      // Call Pydantic AI extraction endpoint
+      const response = await fetch('/api/extract', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ transcript: text })
@@ -99,12 +100,8 @@ export default function RepoBuilder({ userId, voiceTranscript, onPreferenceSaved
         // Skip if already exists
         if (validations.some(v => v.id === id)) continue
 
-        // Determine if soft or hard validation
-        const isHard = pref.confidence === 'high' &&
-          (pref.raw_text.toLowerCase().includes('only') ||
-           pref.raw_text.toLowerCase().includes('must') ||
-           pref.raw_text.toLowerCase().includes('minimum') ||
-           pref.type === 'day_rate')
+        // Use Pydantic AI's requires_hard_validation field
+        const isHard = (pref as any).requires_hard_validation === true
 
         const newValidation: ValidationItem = {
           id,
