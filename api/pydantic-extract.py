@@ -30,16 +30,16 @@ class ExtractionResult(BaseModel):
 
 
 # Determine which model to use based on available API keys
-# Prioritize Anthropic since it's confirmed working in other parts of the app
+# Prioritize Google (cheapest) > Anthropic > OpenAI
 def get_model():
-    if os.environ.get('ANTHROPIC_API_KEY'):
-        return "anthropic:claude-3-haiku-20240307"
-    elif os.environ.get('GOOGLE_API_KEY'):
+    if os.environ.get('GOOGLE_API_KEY'):
         return "google-gla:gemini-2.0-flash"
+    elif os.environ.get('ANTHROPIC_API_KEY'):
+        return "anthropic:claude-3-haiku-20240307"
     elif os.environ.get('OPENAI_API_KEY'):
         return "openai:gpt-4o-mini"
     else:
-        return "anthropic:claude-3-haiku-20240307"
+        return "google-gla:gemini-2.0-flash"
 
 
 SYSTEM_PROMPT = """You are a career preference extraction agent for Fractional.Quest.
@@ -132,7 +132,7 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps({
             "status": "ok",
             "agent": "pydantic-ai",
-            "version": "v3-anthropic-first",
+            "version": "v4-google-first",
             "model": model,
             "keys": {
                 "openai": has_openai,
