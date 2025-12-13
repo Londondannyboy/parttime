@@ -358,6 +358,15 @@ export function RoleCalculator({ role, className = '' }: RoleCalculatorProps) {
             </p>
           </div>
         )}
+
+        {/* Beta Disclaimer */}
+        <div className="mt-6 p-4 bg-gray-900 border border-gray-800 rounded">
+          <p className="text-xs text-gray-500 text-center">
+            <span className="inline-block bg-amber-500 text-black px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider mr-2">Beta</span>
+            This calculator provides rough estimates for illustration only. Actual rates and salaries vary based on location, experience, industry, and market conditions.
+            Consult with a qualified accountant for accurate financial planning.
+          </p>
+        </div>
       </div>
     </div>
   )

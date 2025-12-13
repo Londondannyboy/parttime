@@ -212,7 +212,7 @@ export default async function FractionalJobsUKPage() {
           <div className="text-center mb-16">
             <span className="text-xs font-medium uppercase tracking-[0.3em] text-gray-400 mb-4 block">Fractional Jobs UK</span>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
-              The UK's leading marketplace<br />for fractional jobs
+              Your marketplace<br />for fractional jobs UK
             </h2>
           </div>
           <div className="prose prose-xl prose-gray max-w-none">
@@ -434,7 +434,7 @@ export default async function FractionalJobsUKPage() {
               },
               {
                 q: 'How do I find fractional jobs UK?',
-                a: 'Fractional.quest is the UK\'s leading platform for fractional jobs UK. Browse hundreds of fractional jobs London, Manchester, Birmingham and across the UK. Sign up for alerts to get notified of new fractional jobs UK matching your skills.'
+                a: 'Fractional.quest is a UK job board focused on fractional jobs. Browse fractional jobs London, Manchester, Birmingham and across the UK. Sign up for alerts to get notified of new fractional jobs UK matching your skills.'
               },
             ].map((faq, i) => (
               <details key={i} className="group py-6">

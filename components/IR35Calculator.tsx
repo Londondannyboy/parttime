@@ -376,16 +376,27 @@ export function IR35Calculator({ defaultDayRate = 800, className = '' }: IR35Cal
       </div>
 
       {/* Disclaimer */}
-      <div className="p-4 bg-gray-50 text-xs text-gray-500">
-        <p className="mb-2">
-          <strong>Important:</strong> This calculator provides estimates only. IR35 status is determined by the nature of your working arrangement, not by choice. Seek professional advice.
-        </p>
-        <p>
-          Tax rates based on 2024/25 UK tax year. Outside IR35 assumes optimal limited company structure.
-          <Link href="https://www.gov.uk/guidance/understanding-off-payroll-working-ir35" target="_blank" className="text-amber-600 hover:underline ml-1">
-            Learn more about IR35 →
-          </Link>
-        </p>
+      <div className="p-4 bg-amber-50 border-t-4 border-amber-400">
+        <div className="flex items-start gap-3">
+          <span className="inline-block bg-amber-500 text-black px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider shrink-0 mt-0.5">Beta</span>
+          <div className="text-xs text-gray-700">
+            <p className="mb-2">
+              <strong>Important:</strong> This calculator provides rough estimates for illustration only. IR35 status is determined by the nature of your working arrangement, not by choice.
+              <strong> Always consult with a qualified tax accountant or IR35 specialist</strong> before making financial decisions.
+            </p>
+            <p className="text-gray-600">
+              Tax rates based on 2024/25 UK tax year. Outside IR35 assumes optimal limited company structure.
+              For official guidance, see{' '}
+              <Link href="https://www.gov.uk/guidance/understanding-off-payroll-working-ir35" target="_blank" rel="noopener noreferrer" className="text-amber-700 hover:underline font-medium">
+                gov.uk/IR35
+              </Link>
+              {' '}or use HMRC's{' '}
+              <Link href="https://www.gov.uk/guidance/check-employment-status-for-tax" target="_blank" rel="noopener noreferrer" className="text-amber-700 hover:underline font-medium">
+                CEST tool
+              </Link>.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -15,11 +15,11 @@ export const revalidate = 900
 
 export const metadata: Metadata = {
   title: 'Fractional Jobs UK 2025 - Browse Executive & Part-Time C-Suite Roles',
-  description: 'Browse 500+ fractional jobs in the UK. Find fractional CFO, CMO, CTO roles paying £600-£1,500/day. Part-time executive positions updated daily.',
+  description: 'Browse fractional jobs in the UK. Find fractional CFO, CMO, CTO roles paying £600-£1,500/day. Part-time executive positions updated regularly.',
   keywords: 'fractional jobs, fractional jobs uk, fractional executive jobs, part time executive jobs, fractional cfo jobs, fractional cmo jobs',
   openGraph: {
     title: 'Fractional Jobs UK - Browse Executive & Part-Time C-Suite Roles',
-    description: 'Browse 500+ fractional jobs in the UK. Find fractional CFO, CMO, CTO roles paying £600-£1,500/day.',
+    description: 'Browse fractional jobs in the UK. Find fractional CFO, CMO, CTO roles paying £600-£1,500/day.',
     type: 'website',
   },
 }

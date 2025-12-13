@@ -180,6 +180,15 @@ export function SavingsCalculator() {
           </svg>
         </a>
       </div>
+
+      {/* Beta Disclaimer */}
+      <div className="mt-6 p-4 bg-purple-950/50 rounded-xl border border-purple-700/50">
+        <p className="text-xs text-purple-300 text-center">
+          <span className="inline-block bg-purple-700 text-purple-200 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider mr-2">Beta</span>
+          This calculator provides rough estimates for illustration only. Actual costs vary based on location, experience, benefits, and market conditions.
+          Consult with a qualified accountant for accurate financial planning.
+        </p>
+      </div>
     </div>
   )
 }

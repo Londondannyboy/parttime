@@ -79,7 +79,7 @@ const organizationJsonLd = {
   name: "Fractional.Quest",
   url: "https://fractional.quest",
   logo: "https://fractional.quest/logo.svg",
-  description: "UK's leading platform for fractional executive jobs. Connect with fractional CFOs, CTOs, CMOs and specialized talent.",
+  description: "UK job board for fractional executive roles. Browse fractional CFO, CTO, CMO and senior leadership positions.",
   foundingDate: "2024",
   sameAs: [
     "https://twitter.com/fractionalquest",
