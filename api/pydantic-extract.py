@@ -1,6 +1,11 @@
 """
 Pydantic AI extraction for Fractional.Quest
 Vercel Serverless Function
+
+Tries models in order:
+1. OpenAI (if OPENAI_API_KEY set)
+2. Anthropic (if ANTHROPIC_API_KEY set)
+3. Google (if GOOGLE_API_KEY set)
 """
 from http.server import BaseHTTPRequestHandler
 import json
@@ -24,11 +29,20 @@ class ExtractionResult(BaseModel):
     should_confirm: bool = Field(default=False)
 
 
-# Pydantic AI Agent
-extraction_agent = Agent(
-    model="google-gla:gemini-2.0-flash",
-    result_type=ExtractionResult,
-    system_prompt="""You are a career preference extraction agent for Fractional.Quest.
+# Determine which model to use based on available API keys
+def get_model():
+    if os.environ.get('OPENAI_API_KEY'):
+        return "openai:gpt-4o-mini"
+    elif os.environ.get('ANTHROPIC_API_KEY'):
+        return "anthropic:claude-3-haiku-20240307"
+    elif os.environ.get('GOOGLE_API_KEY'):
+        return "google-gla:gemini-2.0-flash"
+    else:
+        # Default to OpenAI, will fail if no key but gives clear error
+        return "openai:gpt-4o-mini"
+
+
+SYSTEM_PROMPT = """You are a career preference extraction agent for Fractional.Quest.
 
 Extract career preferences from conversation transcripts.
 
@@ -47,7 +61,21 @@ Set requires_hard_validation=false for:
 - General interests, flexible preferences
 
 Only extract EXPLICIT preferences. Set should_confirm=true if any hard validations exist."""
-)
+
+# Create agent lazily to allow environment to be set
+extraction_agent = None
+
+def get_agent():
+    global extraction_agent
+    if extraction_agent is None:
+        model = get_model()
+        print(f"[Pydantic AI] Using model: {model}")
+        extraction_agent = Agent(
+            model=model,
+            result_type=ExtractionResult,
+            system_prompt=SYSTEM_PROMPT
+        )
+    return extraction_agent
 
 
 async def do_extraction(transcript: str) -> dict:
@@ -56,10 +84,11 @@ async def do_extraction(transcript: str) -> dict:
         return {"preferences": [], "should_confirm": False}
 
     try:
-        result = await extraction_agent.run(f"Extract preferences from:\n\n{transcript}")
+        agent = get_agent()
+        result = await agent.run(f"Extract preferences from:\n\n{transcript}")
         return result.data.model_dump()
     except Exception as e:
-        print(f"[Extract] Error: {e}")
+        print(f"[Pydantic AI] Error: {e}")
         return {"preferences": [], "should_confirm": False, "error": str(e)}
 
 
@@ -93,7 +122,23 @@ class handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
         self.end_headers()
-        self.wfile.write(json.dumps({"status": "ok", "agent": "pydantic-ai"}).encode())
+
+        # Return diagnostic info
+        model = get_model()
+        has_openai = bool(os.environ.get('OPENAI_API_KEY'))
+        has_anthropic = bool(os.environ.get('ANTHROPIC_API_KEY'))
+        has_google = bool(os.environ.get('GOOGLE_API_KEY'))
+
+        self.wfile.write(json.dumps({
+            "status": "ok",
+            "agent": "pydantic-ai",
+            "model": model,
+            "keys": {
+                "openai": has_openai,
+                "anthropic": has_anthropic,
+                "google": has_google
+            }
+        }).encode())
 
     def do_OPTIONS(self):
         self.send_response(200)
