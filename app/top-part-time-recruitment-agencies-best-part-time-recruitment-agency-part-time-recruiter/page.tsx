@@ -5,23 +5,23 @@ import { JobsGraph3D } from '@/components/JobsGraph3D'
 import { getAgencies, Agency } from '@/lib/agencies'
 
 export const metadata: Metadata = {
-  title: 'Best Fractional Recruitment Agency UK | Top Recruiters',
-  description: 'Find the best fractional recruitment agency in the UK. Compare top fractional recruiters for CFO, CTO, CMO hiring. Save 40-60% vs full-time executive hires.',
-  keywords: 'best fractional recruitment agency, fractional recruiters, top fractional recruitment agencies, fractional recruitment agency uk, fractional executive recruitment, fractional cfo recruitment',
+  title: 'Best Part-Time Recruitment Agency UK | Top Recruiters',
+  description: 'Find the best part-time recruitment agency in the UK. Compare top part-time recruiters for CFO, CTO, CMO hiring. Save 40-60% vs full-time executive hires.',
+  keywords: 'best part-time recruitment agency, part-time recruiters, top part-time recruitment agencies, part-time recruitment agency uk, part-time executive recruitment, part-time cfo recruitment',
   alternates: {
-    canonical: 'https://fractional.quest/top-fractional-recruitment-agencies-best-fractional-recruitment-agency-fractional-recruiter',
+    canonical: 'https://part-time.quest/top-part-time-recruitment-agencies-best-part-time-recruitment-agency-part-time-recruiter',
   },
   openGraph: {
-    title: 'Best Fractional Recruitment Agency UK | Top Recruiters',
-    description: 'Find the best fractional recruitment agency in the UK. Compare top fractional recruiters and save 40-60% vs full-time hires.',
+    title: 'Best Part-Time Recruitment Agency UK | Top Recruiters',
+    description: 'Find the best part-time recruitment agency in the UK. Compare top part-time recruiters and save 40-60% vs full-time hires.',
     type: 'website',
-    url: 'https://fractional.quest/top-fractional-recruitment-agencies-best-fractional-recruitment-agency-fractional-recruiter',
+    url: 'https://part-time.quest/top-part-time-recruitment-agencies-best-part-time-recruitment-agency-part-time-recruiter',
   },
 }
 
 export const revalidate = 3600
 
-export default async function TopFractionalRecruitmentAgenciesPage() {
+export default async function TopPartTimeRecruitmentAgenciesPage() {
   const agencies = await getAgencies()
   const otherAgencies = agencies.filter(a => !a.payload?.featured)
 
@@ -48,12 +48,12 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
                 </span>
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-[0.95] tracking-tight">
-                  Fractional Recruitment Agency
+                  Part-Time Recruitment Agency
                   <span className="block text-amber-400"> - Done Differently</span>
                 </h1>
 
                 <p className="text-xl text-white/80 leading-relaxed max-w-xl mb-8">
-                  We're building a better way to connect businesses with fractional executives.
+                  We're building a better way to connect businesses with part-time executives.
                   Transparent fees. Quality over quantity. <strong className="text-white">Currently in beta</strong>—join us as we launch.
                 </p>
 
@@ -124,11 +124,11 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                     >
                       <option value="">Select a role...</option>
-                      <option value="cfo">Fractional CFO</option>
-                      <option value="cto">Fractional CTO</option>
-                      <option value="cmo">Fractional CMO</option>
-                      <option value="coo">Fractional COO</option>
-                      <option value="chro">Fractional CHRO / HR Director</option>
+                      <option value="cfo">Part-Time CFO</option>
+                      <option value="cto">Part-Time CTO</option>
+                      <option value="cmo">Part-Time CMO</option>
+                      <option value="coo">Part-Time COO</option>
+                      <option value="chro">Part-Time CHRO / HR Director</option>
                       <option value="other">Other Executive Role</option>
                     </select>
                   </div>
@@ -139,7 +139,7 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
                       name="message"
                       rows={3}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      placeholder="e.g., Series A startup needs fractional CFO 2 days/week for fundraising support..."
+                      placeholder="e.g., Series A startup needs part-time CFO 2 days/week for fundraising support..."
                     />
                   </div>
 
@@ -179,10 +179,10 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
           <div className="text-center mb-16">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Our Approach</span>
             <h2 className="text-3xl md:text-4xl font-black text-gray-900">
-              How Our Fractional Recruitment Agency Works
+              How Our Part-Time Recruitment Agency Works
             </h2>
             <p className="text-xl text-gray-600 mt-4 max-w-2xl mx-auto">
-              A fractional recruitment agency that prioritises quality matching over volume, with transparent pricing.
+              A part-time recruitment agency that prioritises quality matching over volume, with transparent pricing.
             </p>
           </div>
 
@@ -211,7 +211,7 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
           <div className="text-center mb-12">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Pricing</span>
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
-              Fractional Recruitment Agency Fees
+              Part-Time Recruitment Agency Fees
             </h2>
             <p className="text-xl text-gray-600">No retainers. No upfront costs. Pay only when you hire.</p>
           </div>
@@ -246,7 +246,7 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
           <div className="text-center mb-10">
             <span className="inline-block bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">Beta Tool</span>
             <h2 className="text-3xl md:text-4xl font-black text-gray-900">Savings Calculator</h2>
-            <p className="text-gray-600 mt-2">Estimate potential savings with fractional hiring. Results are illustrative only.</p>
+            <p className="text-gray-600 mt-2">Estimate potential savings with part-time hiring. Results are illustrative only.</p>
           </div>
           <SavingsCalculator />
           <p className="text-center text-xs text-gray-500 mt-4">
@@ -256,23 +256,23 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
         </div>
       </section>
 
-      {/* Why Fractional Recruitment */}
+      {/* Why Part-Time Recruitment */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">The Value</span>
             <h2 className="text-3xl md:text-4xl font-black text-gray-900">
-              Why Use a Fractional Recruitment Agency?
+              Why Use a Part-Time Recruitment Agency?
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { title: 'Access Senior Talent', description: 'Fractional executives bring years of experience to your specific challenges without the full-time commitment.', icon: '✓' },
-              { title: 'Faster Than Executive Search', description: 'Traditional executive search can take 3-6 months. Fractional placements typically happen in weeks.', icon: '⚡' },
-              { title: 'Lower Commitment', description: 'Start with a fractional arrangement and scale up if needed. Less risk than a full-time hire.', icon: '🛡️' },
+              { title: 'Access Senior Talent', description: 'Part-Time executives bring years of experience to your specific challenges without the full-time commitment.', icon: '✓' },
+              { title: 'Faster Than Executive Search', description: 'Traditional executive search can take 3-6 months. Part-Time placements typically happen in weeks.', icon: '⚡' },
+              { title: 'Lower Commitment', description: 'Start with a part-time arrangement and scale up if needed. Less risk than a full-time hire.', icon: '🛡️' },
               { title: 'Cost Efficient', description: 'Get senior expertise without full-time salary, benefits, and equity costs.', icon: '💰' },
-              { title: 'Specialist Matching', description: 'Fractional recruitment requires understanding both executive capability and part-time working dynamics.', icon: '🎯' },
+              { title: 'Specialist Matching', description: 'Part-Time recruitment requires understanding both executive capability and part-time working dynamics.', icon: '🎯' },
               { title: 'Flexible Engagement', description: 'Matched on industry, stage, culture fit, and specific business challenges—not just availability.', icon: '🤝' }
             ].map((benefit, index) => (
               <div key={index} className="bg-gray-50 p-6 border border-gray-200">
@@ -292,10 +292,10 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
             <div className="text-center mb-12">
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Market Landscape</span>
               <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
-                Other Fractional Recruiters UK
+                Other Part-Time Recruiters UK
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                We've compiled other reputable fractional recruitment agencies operating in the UK market for comparison.
+                We've compiled other reputable part-time recruitment agencies operating in the UK market for comparison.
               </p>
             </div>
 
@@ -315,7 +315,7 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-4 block">The Guide</span>
             <h2 className="text-4xl font-black text-gray-900 mb-6 leading-tight">
               What Makes the Best<br />
-              <span className="text-amber-600">Fractional Recruitment Agency</span>
+              <span className="text-amber-600">Part-Time Recruitment Agency</span>
             </h2>
             <div className="w-24 h-1 bg-amber-500"></div>
           </div>
@@ -324,42 +324,42 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
           <figure className="mb-12 -mx-6 lg:-mx-16">
             <img
               src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1200"
-              alt="Fractional recruitment agency - executive recruiters matching businesses with part-time CFO, CTO and CMO talent"
-              title="Fractional recruitment agency UK"
+              alt="Part-Time recruitment agency - executive recruiters matching businesses with part-time CFO, CTO and CMO talent"
+              title="Part-Time recruitment agency UK"
               className="w-full h-64 md:h-80 object-cover"
             />
             <figcaption className="text-sm text-gray-500 mt-3 px-6 lg:px-16">
-              A specialist fractional recruitment agency connects businesses with experienced part-time executives
+              A specialist part-time recruitment agency connects businesses with experienced part-time executives
             </figcaption>
           </figure>
 
           <article className="prose prose-lg prose-gray max-w-none">
             <p className="text-xl text-gray-600 leading-relaxed mb-8 font-light">
-              The <strong className="font-semibold text-gray-900">best fractional recruitment agency</strong> specialises in connecting businesses with experienced executives who work on a part-time, ongoing basis. Unlike traditional recruitment agencies that place full-time employees, top fractional recruiters understand the unique requirements of part-time executive engagements.
+              The <strong className="font-semibold text-gray-900">best part-time recruitment agency</strong> specialises in connecting businesses with experienced executives who work on a part-time, ongoing basis. Unlike traditional recruitment agencies that place full-time employees, top part-time recruiters understand the unique requirements of part-time executive engagements.
             </p>
 
             <p>
-              The <strong>best fractional recruitment agencies</strong> in the UK maintain networks of verified fractional CFOs, CTOs, CMOs, COOs, and other C-suite professionals. They understand that fractional hiring requires different assessment criteria: candidates must excel at rapid onboarding, managing multiple clients, and delivering impact in limited time.
+              The <strong>best part-time recruitment agencies</strong> in the UK maintain networks of verified part-time CFOs, CTOs, CMOs, COOs, and other C-suite professionals. They understand that part-time hiring requires different assessment criteria: candidates must excel at rapid onboarding, managing multiple clients, and delivering impact in limited time.
             </p>
 
             <div className="bg-gray-50 p-8 my-10 border-l-4 border-amber-500">
               <p className="text-xl font-semibold text-gray-900 mb-0">
-                "Working with a specialist fractional recruitment agency typically costs 10-20% of engagement value—often less than traditional executive search fees of 25-33%."
+                "Working with a specialist part-time recruitment agency typically costs 10-20% of engagement value—often less than traditional executive search fees of 25-33%."
               </p>
             </div>
 
-            <h3 className="text-2xl font-black text-gray-900 mt-12 mb-4">What to Look for in Fractional Recruiters</h3>
+            <h3 className="text-2xl font-black text-gray-900 mt-12 mb-4">What to Look for in Part-Time Recruiters</h3>
             <ul className="space-y-3">
-              <li><strong>Specialisation:</strong> They focus on fractional placements, not just interim or permanent roles</li>
-              <li><strong>Quality over Volume:</strong> Vetted executives with proven fractional experience</li>
+              <li><strong>Specialisation:</strong> They focus on part-time placements, not just interim or permanent roles</li>
+              <li><strong>Quality over Volume:</strong> Vetted executives with proven part-time experience</li>
               <li><strong>Transparent Fees:</strong> Clear pricing without hidden costs or retainers</li>
-              <li><strong>Understanding of Fractional Work:</strong> Knowledge of part-time executive dynamics</li>
+              <li><strong>Understanding of Part-Time Work:</strong> Knowledge of part-time executive dynamics</li>
               <li><strong>Guarantee:</strong> Replacement guarantee if the match doesn't work</li>
             </ul>
 
-            <h3 className="text-2xl font-black text-gray-900 mt-12 mb-4">Fractional vs Interim Recruitment</h3>
+            <h3 className="text-2xl font-black text-gray-900 mt-12 mb-4">Part-Time vs Interim Recruitment</h3>
             <p>
-              <strong>Fractional recruiters</strong> place part-time executives for ongoing engagements (typically 1-3 days/week indefinitely). <strong>Interim recruiters</strong> place full-time executives for temporary periods (3-12 months). The best fractional recruitment agency understands this distinction and builds networks accordingly.
+              <strong>Part-Time recruiters</strong> place part-time executives for ongoing engagements (typically 1-3 days/week indefinitely). <strong>Interim recruiters</strong> place full-time executives for temporary periods (3-12 months). The best part-time recruitment agency understands this distinction and builds networks accordingly.
             </p>
           </article>
         </div>
@@ -371,17 +371,17 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
           <div className="mb-12">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">FAQ</span>
             <h2 className="text-3xl md:text-4xl font-black text-gray-900">
-              Fractional Recruitment Agency FAQ
+              Part-Time Recruitment Agency FAQ
             </h2>
           </div>
 
           <div className="space-y-4">
             {[
-              { q: 'What is a fractional recruitment agency?', a: 'A fractional recruitment agency specialises in placing executives who work part-time with businesses on an ongoing basis. Unlike interim recruitment (full-time, temporary), fractional means part-time, typically 1-3 days per week.' },
-              { q: 'How much do fractional recruiters charge?', a: 'Fractional recruitment agency fees typically range from 10-25% of first year engagement value. This is often lower than traditional executive search firms which charge 25-33% of annual salary for full-time placements.' },
-              { q: 'How long does fractional recruitment take?', a: 'Fractional placements typically happen faster than full-time executive search—often 2-4 weeks versus 3-6 months. However, quality matching is more important than speed.' },
-              { q: 'What roles do fractional recruiters fill?', a: 'Fractional recruitment agencies typically place C-suite roles (CFO, CTO, CMO, COO) and senior director positions. These are roles where strategic expertise is needed but full-time isn\'t required.' },
-              { q: 'What\'s the difference between fractional and interim?', a: 'Interim recruiters place full-time executives for temporary periods (3-12 months). Fractional recruiters place part-time executives for ongoing engagements, typically 1-3 days per week on an indefinite basis.' }
+              { q: 'What is a part-time recruitment agency?', a: 'A part-time recruitment agency specialises in placing executives who work part-time with businesses on an ongoing basis. Unlike interim recruitment (full-time, temporary), part-time means part-time, typically 1-3 days per week.' },
+              { q: 'How much do part-time recruiters charge?', a: 'Part-Time recruitment agency fees typically range from 10-25% of first year engagement value. This is often lower than traditional executive search firms which charge 25-33% of annual salary for full-time placements.' },
+              { q: 'How long does part-time recruitment take?', a: 'Part-Time placements typically happen faster than full-time executive search—often 2-4 weeks versus 3-6 months. However, quality matching is more important than speed.' },
+              { q: 'What roles do part-time recruiters fill?', a: 'Part-Time recruitment agencies typically place C-suite roles (CFO, CTO, CMO, COO) and senior director positions. These are roles where strategic expertise is needed but full-time isn\'t required.' },
+              { q: 'What\'s the difference between part-time and interim?', a: 'Interim recruiters place full-time executives for temporary periods (3-12 months). Part-Time recruiters place part-time executives for ongoing engagements, typically 1-3 days per week on an indefinite basis.' }
             ].map((faq, index) => (
               <div key={index} className="bg-white p-6 border border-gray-200">
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{faq.q}</h3>
@@ -404,7 +404,7 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
             <span className="text-amber-400">We Launch</span>
           </h2>
           <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-            We're building a better fractional recruitment agency. Register your interest and be first to know when we launch.
+            We're building a better part-time recruitment agency. Register your interest and be first to know when we launch.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a
@@ -429,11 +429,11 @@ export default async function TopFractionalRecruitmentAgenciesPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <span className="text-sm font-bold uppercase tracking-wider text-gray-400">Related</span>
             <div className="flex flex-wrap gap-4">
-              <Link href="/fractional-cfo-jobs-uk" className="text-gray-600 hover:text-amber-600 font-medium transition-colors">Fractional CFO Jobs</Link>
-              <Link href="/fractional-cto-jobs-uk" className="text-gray-600 hover:text-amber-600 font-medium transition-colors">Fractional CTO Jobs</Link>
-              <Link href="/fractional-cmo-jobs-uk" className="text-gray-600 hover:text-amber-600 font-medium transition-colors">Fractional CMO Jobs</Link>
-              <Link href="/fractional-coo-jobs-uk" className="text-gray-600 hover:text-amber-600 font-medium transition-colors">Fractional COO Jobs</Link>
-              <Link href="/fractionaljobsuk" className="text-gray-600 hover:text-amber-600 font-medium transition-colors">All Jobs</Link>
+              <Link href="/part-time-cfo-jobs-uk" className="text-gray-600 hover:text-amber-600 font-medium transition-colors">Part-Time CFO Jobs</Link>
+              <Link href="/part-time-cto-jobs-uk" className="text-gray-600 hover:text-amber-600 font-medium transition-colors">Part-Time CTO Jobs</Link>
+              <Link href="/part-time-cmo-jobs-uk" className="text-gray-600 hover:text-amber-600 font-medium transition-colors">Part-Time CMO Jobs</Link>
+              <Link href="/part-time-coo-jobs-uk" className="text-gray-600 hover:text-amber-600 font-medium transition-colors">Part-Time COO Jobs</Link>
+              <Link href="/part-timejobsuk" className="text-gray-600 hover:text-amber-600 font-medium transition-colors">All Jobs</Link>
             </div>
           </div>
         </div>
