@@ -4,7 +4,7 @@ import { createDbQuery } from '@/lib/db'
 export const revalidate = 3600 // Revalidate every hour
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://fractional.quest'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://parttime.quest'
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
@@ -15,25 +15,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: `${baseUrl}/fractional-jobs`,
+      url: `${baseUrl}/part-time-jobs`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/fractionaljobsuk`,
+      url: `${baseUrl}/parttimejobsuk`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/fractional-jobs-articles`,
+      url: `${baseUrl}/part-time-jobs-articles`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/top-fractional-recruitment-agencies-best-fractional-recruitment-agency-fractional-recruiter`,
+      url: `${baseUrl}/top-part-time-recruitment-agencies-best-part-time-recruitment-agency-part-time-recruiter`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
@@ -45,79 +45,79 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-london`,
+      url: `${baseUrl}/part-time-jobs-london`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-birmingham`,
+      url: `${baseUrl}/part-time-jobs-birmingham`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-manchester`,
+      url: `${baseUrl}/part-time-jobs-manchester`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-edinburgh`,
+      url: `${baseUrl}/part-time-jobs-edinburgh`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-leeds`,
+      url: `${baseUrl}/part-time-jobs-leeds`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-bristol`,
+      url: `${baseUrl}/part-time-jobs-bristol`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-glasgow`,
+      url: `${baseUrl}/part-time-jobs-glasgow`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-liverpool`,
+      url: `${baseUrl}/part-time-jobs-liverpool`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-newcastle`,
+      url: `${baseUrl}/part-time-jobs-newcastle`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-cardiff`,
+      url: `${baseUrl}/part-time-jobs-cardiff`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-belfast`,
+      url: `${baseUrl}/part-time-jobs-belfast`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-cambridge`,
+      url: `${baseUrl}/part-time-jobs-cambridge`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-oxford`,
+      url: `${baseUrl}/part-time-jobs-oxford`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
@@ -129,220 +129,220 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-tech`,
+      url: `${baseUrl}/part-time-jobs-tech`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-finance`,
+      url: `${baseUrl}/part-time-jobs-finance`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-startups`,
+      url: `${baseUrl}/part-time-jobs-startups`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-healthcare`,
+      url: `${baseUrl}/part-time-jobs-healthcare`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-ecommerce`,
+      url: `${baseUrl}/part-time-jobs-ecommerce`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-saas`,
+      url: `${baseUrl}/part-time-jobs-saas`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/fractional-jobs-professional-services`,
+      url: `${baseUrl}/part-time-jobs-professional-services`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     // Service Pages (high priority - company-focused)
     {
-      url: `${baseUrl}/fractional-cfo-services`,
+      url: `${baseUrl}/part-time-cfo-services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/fractional-cmo-services`,
+      url: `${baseUrl}/part-time-cmo-services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/fractional-cto-services`,
+      url: `${baseUrl}/part-time-cto-services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/fractional-coo-services`,
+      url: `${baseUrl}/part-time-coo-services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/fractional-cpo-services`,
+      url: `${baseUrl}/part-time-cpo-services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/fractional-chro-services`,
+      url: `${baseUrl}/part-time-chro-services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/fractional-cio-services`,
+      url: `${baseUrl}/part-time-cio-services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/fractional-cdo-services`,
+      url: `${baseUrl}/part-time-cdo-services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/fractional-cro-services`,
+      url: `${baseUrl}/part-time-cro-services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/fractional-ciso-services`,
+      url: `${baseUrl}/part-time-ciso-services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
     },
-    // Interim Executive Pages
+    // Part-Time Executive Pages
     {
-      url: `${baseUrl}/interim-ceo`,
+      url: `${baseUrl}/part-time-ceo`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/interim-cfo`,
+      url: `${baseUrl}/part-time-cfo`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/interim-cmo`,
+      url: `${baseUrl}/part-time-cmo`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/interim-cto`,
+      url: `${baseUrl}/part-time-cto`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/interim-coo`,
+      url: `${baseUrl}/part-time-coo`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/interim-cpo`,
+      url: `${baseUrl}/part-time-cpo`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/interim-chro`,
+      url: `${baseUrl}/part-time-chro`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/interim-cio`,
+      url: `${baseUrl}/part-time-cio`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/interim-ciso`,
+      url: `${baseUrl}/part-time-ciso`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/interim-cro`,
+      url: `${baseUrl}/part-time-cro`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     // Functional Leadership Pages
     {
-      url: `${baseUrl}/fractional-marketing`,
+      url: `${baseUrl}/part-time-marketing`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-finance`,
+      url: `${baseUrl}/part-time-finance`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-operations`,
+      url: `${baseUrl}/part-time-operations`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-product`,
+      url: `${baseUrl}/part-time-product`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-hr`,
+      url: `${baseUrl}/part-time-hr`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-technology`,
+      url: `${baseUrl}/part-time-technology`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-data`,
+      url: `${baseUrl}/part-time-data`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-revenue`,
+      url: `${baseUrl}/part-time-revenue`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-security`,
+      url: `${baseUrl}/part-time-security`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
@@ -380,61 +380,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     // Service Category Pages
     {
-      url: `${baseUrl}/fractional-services`,
+      url: `${baseUrl}/part-time-services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/fractional-consulting`,
+      url: `${baseUrl}/part-time-consulting`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-agency`,
+      url: `${baseUrl}/part-time-agency`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-marketing-agency`,
+      url: `${baseUrl}/part-time-marketing-agency`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-finance-agency`,
+      url: `${baseUrl}/part-time-finance-agency`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     // Role-specific job pages (high priority SEO pages)
-    {
-      url: `${baseUrl}/fractional-cfo-jobs-uk`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/fractional-cmo-jobs-uk`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/fractional-cto-jobs-uk`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/fractional-coo-jobs-uk`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    // Part-time job pages (high priority SEO pages)
     {
       url: `${baseUrl}/part-time-cfo-jobs-uk`,
       lastModified: new Date(),
@@ -447,15 +422,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/part-time-cto-jobs-uk`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/part-time-coo-jobs-uk`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
     // Salary guides
     {
-      url: `${baseUrl}/fractional-cfo-salary`,
+      url: `${baseUrl}/part-time-cfo-salary`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/fractional-cmo-salary`,
+      url: `${baseUrl}/part-time-cmo-salary`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.85,
@@ -541,7 +528,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     `
 
     const jobUrls: MetadataRoute.Sitemap = jobs.map((job: any) => ({
-      url: `${baseUrl}/fractional-job/${job.slug}`,
+      url: `${baseUrl}/part-time-job/${job.slug}`,
       lastModified: job.updated_date ? new Date(job.updated_date) : new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
@@ -550,7 +537,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Fetch all published articles
     const articles = await sql`
       SELECT slug, published_at FROM articles
-      WHERE status = 'published' AND app = 'fractional'
+      WHERE status = 'published' AND app = 'part-time'
       ORDER BY published_at DESC
       LIMIT 500
     `

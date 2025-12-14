@@ -13,12 +13,12 @@ import { DesktopOnly } from '@/components/DesktopOnly'
 export const revalidate = 900
 
 export const metadata: Metadata = {
-  title: 'Fractional Jobs UK 2025 - Browse Executive & Part-Time C-Suite Roles',
-  description: 'Browse fractional jobs in the UK. Find fractional CFO, CMO, CTO roles paying £600-£1,500/day. Part-time executive positions updated regularly.',
-  keywords: 'fractional jobs, fractional jobs uk, fractional executive jobs, part time executive jobs, fractional cfo jobs, fractional cmo jobs',
+  title: 'Part-Time Jobs UK 2025 - Browse Executive & Part-Time C-Suite Roles',
+  description: 'Browse part-time executive jobs in the UK. Find part-time CFO, CMO, CTO roles paying £600-£1,500/day. Flexible executive positions updated regularly.',
+  keywords: 'part-time jobs, part-time jobs uk, part-time executive jobs, flexible executive jobs, part-time cfo jobs, part-time cmo jobs',
   openGraph: {
-    title: 'Fractional Jobs UK - Browse Executive & Part-Time C-Suite Roles',
-    description: 'Browse fractional jobs in the UK. Find fractional CFO, CMO, CTO roles paying £600-£1,500/day.',
+    title: 'Part-Time Jobs UK - Browse Executive & Flexible C-Suite Roles',
+    description: 'Browse part-time executive jobs in the UK. Find part-time CFO, CMO, CTO roles paying £600-£1,500/day.',
     type: 'website',
   },
 }
@@ -214,7 +214,7 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
       if (roleFilter) params.set('role', roleFilter)
       if (locationFilter) params.set('location', locationFilter)
       if (industryFilter) params.set('industry', industryFilter)
-      return `/fractional-jobs?${params.toString()}`
+      return `/part-time-jobs?${params.toString()}`
     }
 
     return (
@@ -238,12 +238,12 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
                 </span>
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-[0.95] tracking-tight">
-                  Fractional Jobs UK
+                  Part-Time Jobs UK
                 </h1>
 
                 <img
                   src="/logo.svg"
-                  alt="Fractional Jobs UK - Browse executive and part-time C-suite positions"
+                  alt="Part-Time Jobs UK - Browse executive and flexible C-suite positions"
                   className="hidden"
                   width={1}
                   height={1}
@@ -326,7 +326,7 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
                 <div className="text-6xl mb-4">🔍</div>
                 <h2 className="text-2xl font-bold text-white mb-2">No jobs match your filters</h2>
                 <p className="text-gray-300 mb-6">Try adjusting your search criteria</p>
-                <Link href="/fractional-jobs">
+                <Link href="/part-time-jobs">
                   <button className="px-6 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-black font-semibold transition-colors">
                     Clear All Filters
                   </button>
@@ -342,7 +342,7 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
                       : undefined
 
                     return (
-                      <Link key={job.id} href={`/fractional-job/${job.slug}`}>
+                      <Link key={job.id} href={`/part-time-job/${job.slug}`}>
                         <JobCard
                           title={job.title}
                           company={job.company_name}

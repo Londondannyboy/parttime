@@ -31,33 +31,33 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "Fractional Jobs UK | CFO, CTO, CMO Roles | Fractional Quest",
-    template: "%s | Fractional Quest"
+    default: "Part-Time Jobs UK | CFO, CTO, CMO Roles | Part-Time Quest",
+    template: "%s | Part-Time Quest"
   },
-  description: "Discover the best fractional jobs in the UK. Browse fractional CFO, CMO, CTO and executive roles in London. Connect with leading fractional recruitment agencies and find flexible leadership opportunities.",
-  keywords: ["fractional jobs", "fractional jobs UK", "fractional CFO", "fractional CTO", "fractional CMO", "fractional COO", "fractional executive", "part-time executive", "fractional recruitment agencies", "London fractional jobs"],
-  authors: [{ name: "Fractional Quest" }],
-  creator: "Fractional Quest",
-  publisher: "Fractional Quest",
-  metadataBase: new URL("https://fractional.quest"),
+  description: "Discover the best part-time executive jobs in the UK. Browse part-time CFO, CMO, CTO and executive roles in London. Connect with leading part-time recruitment agencies and find flexible leadership opportunities.",
+  keywords: ["part-time jobs", "part-time jobs UK", "part-time CFO", "part-time CTO", "part-time CMO", "part-time COO", "part-time executive", "flexible executive", "part-time recruitment agencies", "London part-time jobs"],
+  authors: [{ name: "Part-Time Quest" }],
+  creator: "Part-Time Quest",
+  publisher: "Part-Time Quest",
+  metadataBase: new URL("https://parttime.quest"),
   alternates: {
-    canonical: "https://fractional.quest",
+    canonical: "https://parttime.quest",
   },
   openGraph: {
     type: "website",
     locale: "en_GB",
-    url: "https://fractional.quest",
-    siteName: "Fractional Quest",
-    title: "Fractional Jobs UK | CFO, CTO, CMO Roles",
-    description: "Discover the best fractional jobs in the UK. Browse fractional CFO, CMO, CTO and executive roles in London.",
+    url: "https://parttime.quest",
+    siteName: "Part-Time Quest",
+    title: "Part-Time Jobs UK | CFO, CTO, CMO Roles",
+    description: "Discover the best part-time executive jobs in the UK. Browse part-time CFO, CMO, CTO and executive roles in London.",
     // Images auto-generated from app/opengraph-image.tsx
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fractional Jobs UK | Fractional Quest",
-    description: "Discover the best fractional jobs in the UK. Browse fractional CFO, CMO, CTO and executive roles.",
-    site: "@fractionalquest",
-    creator: "@fractionalquest",
+    title: "Part-Time Jobs UK | Part-Time Quest",
+    description: "Discover the best part-time executive jobs in the UK. Browse part-time CFO, CMO, CTO and executive roles.",
+    site: "@parttimequest",
+    creator: "@parttimequest",
     // Images auto-generated from app/twitter-image.tsx
   },
   robots: {
@@ -77,27 +77,27 @@ export const metadata: Metadata = {
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "@id": "https://fractional.quest/#organization",
-  name: "Fractional Quest",
-  alternateName: ["Fractional Quest", "FractionalQuest"],
-  url: "https://fractional.quest",
+  "@id": "https://parttime.quest/#organization",
+  name: "Part-Time Quest",
+  alternateName: ["Part-Time Quest", "PartTimeQuest"],
+  url: "https://parttime.quest",
   logo: {
     "@type": "ImageObject",
-    url: "https://fractional.quest/logo.svg",
+    url: "https://parttime.quest/logo.svg",
     width: "512",
     height: "512"
   },
-  image: "https://fractional.quest/logo.svg",
-  description: "UK marketplace for fractional jobs and executive services. Browse fractional CFO, CTO, CMO roles or hire fractional executives.",
+  image: "https://parttime.quest/logo.svg",
+  description: "UK marketplace for part-time executive jobs and services. Browse part-time CFO, CTO, CMO roles or hire part-time executives.",
   foundingDate: "2024",
   sameAs: [
-    "https://twitter.com/fractionalquest",
-    "https://linkedin.com/company/fractionalquest"
+    "https://twitter.com/parttimequest",
+    "https://linkedin.com/company/parttimequest"
   ],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
-    url: "https://fractional.quest/contact",
+    url: "https://parttime.quest/contact",
     availableLanguage: "English"
   },
   areaServed: {
@@ -109,25 +109,25 @@ const organizationJsonLd = {
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Fractional Quest",
-  alternateName: ["Fractional Quest", "FractionalQuest", "Fractional Jobs UK"],
-  url: "https://fractional.quest",
-  description: "UK marketplace for fractional jobs and executive services. Browse fractional CFO, CMO, CTO roles.",
+  name: "Part-Time Quest",
+  alternateName: ["Part-Time Quest", "PartTimeQuest", "Part-Time Jobs UK"],
+  url: "https://parttime.quest",
+  description: "UK marketplace for part-time executive jobs and services. Browse part-time CFO, CMO, CTO roles.",
   inLanguage: "en-GB",
   publisher: {
     "@type": "Organization",
-    name: "Fractional Quest",
-    url: "https://fractional.quest",
+    name: "Part-Time Quest",
+    url: "https://parttime.quest",
     logo: {
       "@type": "ImageObject",
-      url: "https://fractional.quest/logo.svg"
+      url: "https://parttime.quest/logo.svg"
     }
   },
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://fractional.quest/fractional-jobs?q={search_term_string}"
+      urlTemplate: "https://parttime.quest/part-time-jobs?q={search_term_string}"
     },
     "query-input": "required name=search_term_string"
   }

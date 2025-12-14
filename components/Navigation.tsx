@@ -20,9 +20,9 @@ export function Navigation() {
 
   const navLinks = [
     { href: '/voice-test', label: 'Repo' },
-    { href: '/fractional-services', label: 'Services' },
-    { href: '/fractional-jobs', label: 'Fractional Jobs' },
-    { href: '/fractional-jobs-articles', label: 'Knowledge Base' }
+    { href: '/part-time-services', label: 'Services' },
+    { href: '/part-time-jobs', label: 'Part-Time Jobs' },
+    { href: '/part-time-jobs-articles', label: 'Knowledge Base' }
   ]
 
   const isActive = (href: string) => {
@@ -39,10 +39,10 @@ export function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 bg-gradient-to-br from-gray-800 to-black rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-              <span className="text-white font-black text-xl">F</span>
+              <span className="text-white font-black text-xl">P</span>
             </div>
             <div className="hidden sm:block">
-              <span className="font-bold text-gray-900 text-lg">Fractional</span>
+              <span className="font-bold text-gray-900 text-lg">Part-Time</span>
               <span className="text-gray-600 font-bold text-lg">.Quest</span>
             </div>
           </Link>
@@ -64,9 +64,9 @@ export function Navigation() {
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Jobs link - always visible, prominent on mobile */}
             <Link
-              href="/fractional-jobs"
+              href="/part-time-jobs"
               className={`md:hidden px-3 py-2 rounded-lg font-semibold text-sm transition-colors ${
-                isActive('/fractional-jobs')
+                isActive('/part-time-jobs')
                   ? 'bg-gray-200 text-gray-900'
                   : 'text-gray-700 hover:bg-gray-100'
               }`}

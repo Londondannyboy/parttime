@@ -10,16 +10,16 @@ export function Footer() {
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-800 rounded-xl flex items-center justify-center">
-                <span className="text-white font-black text-2xl">F</span>
+                <span className="text-white font-black text-2xl">P</span>
               </div>
               <div>
-                <span className="font-bold text-white text-xl">Fractional</span>
+                <span className="font-bold text-white text-xl">Part-Time</span>
                 <span className="text-gray-400 font-bold text-xl">.Quest</span>
               </div>
             </Link>
             <p className="text-gray-400 leading-relaxed mb-6">
-              The UK's emerging platform connecting companies with fractional executives.
-              Find your next CFO, CTO, CMO, or COO on a part-time basis.
+              The UK's emerging platform connecting companies with part-time executives.
+              Find your next CFO, CTO, CMO, or COO on a flexible basis.
             </p>
             <div className="flex gap-4">
               <a
@@ -57,7 +57,7 @@ export function Footer() {
                 </h4>
                 <ul className="space-y-3">
                   <li>
-                    <Link href="/fractional-jobs" className="text-gray-400 hover:text-white text-sm transition-colors">
+                    <Link href="/part-time-jobs" className="text-gray-400 hover:text-white text-sm transition-colors">
                       Browse Jobs
                     </Link>
                   </li>
@@ -97,17 +97,17 @@ export function Footer() {
                   </li>
                   <li>
                     <Link href="/cfo" className="text-gray-400 hover:text-white text-sm transition-colors">
-                      Fractional CFO
+                      Part-Time CFO
                     </Link>
                   </li>
                   <li>
                     <Link href="/cto" className="text-gray-400 hover:text-white text-sm transition-colors">
-                      Fractional CTO
+                      Part-Time CTO
                     </Link>
                   </li>
                   <li>
                     <Link href="/cmo" className="text-gray-400 hover:text-white text-sm transition-colors">
-                      Fractional CMO
+                      Part-Time CMO
                     </Link>
                   </li>
                   <li>
@@ -125,22 +125,22 @@ export function Footer() {
                 </h4>
                 <ul className="space-y-3">
                   <li>
-                    <Link href="/fractional-jobs-london" className="text-gray-400 hover:text-white text-sm transition-colors">
+                    <Link href="/part-time-jobs-london" className="text-gray-400 hover:text-white text-sm transition-colors">
                       London
                     </Link>
                   </li>
                   <li>
-                    <Link href="/fractional-jobs-manchester" className="text-gray-400 hover:text-white text-sm transition-colors">
+                    <Link href="/part-time-jobs-manchester" className="text-gray-400 hover:text-white text-sm transition-colors">
                       Manchester
                     </Link>
                   </li>
                   <li>
-                    <Link href="/fractional-jobs-birmingham" className="text-gray-400 hover:text-white text-sm transition-colors">
+                    <Link href="/part-time-jobs-birmingham" className="text-gray-400 hover:text-white text-sm transition-colors">
                       Birmingham
                     </Link>
                   </li>
                   <li>
-                    <Link href="/fractional-jobs-edinburgh" className="text-gray-400 hover:text-white text-sm transition-colors">
+                    <Link href="/part-time-jobs-edinburgh" className="text-gray-400 hover:text-white text-sm transition-colors">
                       Edinburgh
                     </Link>
                   </li>
@@ -195,7 +195,7 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400">
-              © {new Date().getFullYear()} Fractional Quest. All rights reserved. Built in the UK.
+              © {new Date().getFullYear()} Part-Time Quest. All rights reserved. Built in the UK.
             </p>
             <div className="flex items-center gap-6">
               <span className="text-xs text-gray-400 flex items-center gap-2">
