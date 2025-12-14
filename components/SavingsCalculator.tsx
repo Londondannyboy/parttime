@@ -163,7 +163,7 @@ export function SavingsCalculator() {
           </div>
 
           <p className="text-xs text-purple-300 text-center mt-4">
-            Based on £150/hr average fractional rate. Full-time includes 35% for employer NI, pension, benefits and overhead.
+            Based on £150/hr average part-time rate. Full-time includes 35% for employer NI, pension, benefits and overhead.
           </p>
         </div>
       </div>

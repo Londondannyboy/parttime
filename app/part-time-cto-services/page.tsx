@@ -9,21 +9,21 @@ import { ServiceComparisonTable } from '@/components/ServiceComparisonTable'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Fractional CTO Services UK | Hire a Part-Time CTO',
-  description: 'Hire a Fractional CTO for your business. Access senior technical leadership at a fraction of full-time cost. Expert CTOs for architecture, team building, and technical strategy. Start within days.',
-  keywords: 'fractional cto, fractional cto services, hire fractional cto, part time cto, fractional chief technology officer, fractional cto uk, fractional tech lead',
+  title: 'Part-Time CTO Services UK | Hire a Part-Time CTO',
+  description: 'Hire a Part-Time CTO for your business. Access senior technical leadership at a fraction of full-time cost. Expert CTOs for architecture, team building, and technical strategy. Start within days.',
+  keywords: 'part-time cto, part-time cto services, hire part-time cto, part time cto, part-time chief technology officer, part-time cto uk, part-time tech lead',
   alternates: {
-    canonical: 'https://fractional.quest/fractional-cto-services',
+    canonical: 'https://parttime.quest/part-time-cto-services',
   },
   openGraph: {
-    title: 'Fractional CTO Services UK | Hire a Part-Time CTO',
-    description: 'Hire a Fractional CTO for your business. Senior technical leadership at a fraction of full-time cost.',
-    images: ['/images/fractional-cto-services.jpg'],
-    url: 'https://fractional.quest/fractional-cto-services',
+    title: 'Part-Time CTO Services UK | Hire a Part-Time CTO',
+    description: 'Hire a Part-Time CTO for your business. Senior technical leadership at a fraction of full-time cost.',
+    images: ['/images/part-time-cto-services.jpg'],
+    url: 'https://parttime.quest/part-time-cto-services',
   },
 }
 
-export default function FractionalCTOServicesPage() {
+export default function PartTimeCTOServicesPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section with 3D Knowledge Graph Background */}
@@ -41,11 +41,11 @@ export default function FractionalCTOServicesPage() {
                 Technical Leadership
               </span>
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-[0.9] tracking-tight">
-                Fractional CTO<br />
+                Part-Time CTO<br />
                 <span className="text-blue-400">Services UK</span>
               </h1>
               <p className="text-xl md:text-2xl text-white/80 leading-relaxed max-w-2xl mb-8">
-                Hire a <strong className="text-white">Fractional CTO</strong> to lead your technology.
+                Hire a <strong className="text-white">Part-Time CTO</strong> to lead your technology.
                 Senior technical leadership, architecture expertise, and engineering strategy—at a fraction of full-time cost.
               </p>
               <div className="flex flex-wrap gap-8 mb-10">
@@ -64,7 +64,7 @@ export default function FractionalCTOServicesPage() {
               </div>
               <div className="flex flex-wrap gap-4">
                 <Link href="#contact" className="px-8 py-4 bg-blue-500 text-white font-bold uppercase tracking-wider hover:bg-blue-400 transition-colors">
-                  Hire a Fractional CTO
+                  Hire a Part-Time CTO
                 </Link>
                 <Link href="#calculator" className="px-8 py-4 border-2 border-white text-white font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
                   Calculate Savings
@@ -75,31 +75,31 @@ export default function FractionalCTOServicesPage() {
         </div>
       </section>
 
-      {/* What is a Fractional CTO */}
+      {/* What is a Part-Time CTO */}
       <section className="py-20 md:py-28 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="mb-12">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Overview</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">What is a Fractional CTO?</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900">What is a Part-Time CTO?</h2>
           </div>
           <div className="prose prose-lg prose-gray max-w-none">
             <p className="text-xl md:text-2xl text-gray-600 leading-relaxed mb-8 font-light">
-              A <strong className="font-semibold text-gray-900">Fractional CTO</strong> is an experienced Chief Technology Officer who works with your company on a part-time basis—typically 1-3 days per week. You get the technical leadership, architecture expertise, and engineering strategy of a senior CTO without the commitment and cost of a full-time hire.
+              A <strong className="font-semibold text-gray-900">Part-Time CTO</strong> is an experienced Chief Technology Officer who works with your company on a part-time basis—typically 1-3 days per week. You get the technical leadership, architecture expertise, and engineering strategy of a senior CTO without the commitment and cost of a full-time hire.
             </p>
             <p>
-              Unlike technical consultants who advise on specific problems, a fractional CTO becomes your technology leader. They make architecture decisions, lead your engineering team, set technical strategy, and take ownership of your technology—just not five days a week.
+              Unlike technical consultants who advise on specific problems, a part-time CTO becomes your technology leader. They make architecture decisions, lead your engineering team, set technical strategy, and take ownership of your technology—just not five days a week.
             </p>
             <div className="bg-gray-50 p-8 my-10 border-l-4 border-blue-500">
               <p className="text-xl font-semibold text-gray-900 mb-0">
                 "Companies access CTO expertise for £3,500-£6,500 per week instead of £15,000+ monthly for a full-time CTO."
               </p>
             </div>
-            <h3 className="text-2xl font-black text-gray-900 mt-12 mb-4">Fractional CTO vs Technical Consultant</h3>
+            <h3 className="text-2xl font-black text-gray-900 mt-12 mb-4">Part-Time CTO vs Technical Consultant</h3>
             <p>
               A technical consultant gives advice on specific problems—they might review your architecture, assess technical debt, or recommend a technology stack. But they don't take ongoing ownership or lead your team.
             </p>
             <p>
-              A fractional CTO is an embedded leader. They're accountable for technical outcomes, make decisions (not just recommendations), mentor your engineers, and represent technology to your board and investors. They're part of your leadership team.
+              A part-time CTO is an embedded leader. They're accountable for technical outcomes, make decisions (not just recommendations), mentor your engineers, and represent technology to your board and investors. They're part of your leadership team.
             </p>
           </div>
         </div>
@@ -110,8 +110,8 @@ export default function FractionalCTOServicesPage() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="mb-12">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Responsibilities</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">What Does a Fractional CTO Do?</h2>
-            <p className="text-xl text-gray-600 mt-4">Core responsibilities your fractional CTO will own</p>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900">What Does a Part-Time CTO Do?</h2>
+            <p className="text-xl text-gray-600 mt-4">Core responsibilities your part-time CTO will own</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -166,7 +166,7 @@ export default function FractionalCTOServicesPage() {
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="mb-12">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Benefits</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">Why Hire a Fractional CTO?</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900">Why Hire a Part-Time CTO?</h2>
           </div>
           <div className="space-y-8">
             {[
@@ -196,7 +196,7 @@ export default function FractionalCTOServicesPage() {
               },
               {
                 title: 'Broad Expertise',
-                description: 'Fractional CTOs work across multiple companies and tech stacks. They bring diverse experience and modern best practices.',
+                description: 'Part-Time CTOs work across multiple companies and tech stacks. They bring diverse experience and modern best practices.',
                 stat: '5+',
                 statLabel: 'Companies Seen',
               },
@@ -221,11 +221,11 @@ export default function FractionalCTOServicesPage() {
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="mb-12">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Timing</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">When Should You Hire a Fractional CTO?</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900">When Should You Hire a Part-Time CTO?</h2>
           </div>
           <div className="prose prose-lg prose-gray max-w-none mb-8">
             <p>
-              The right time to hire a fractional CTO depends on your technical needs and company stage. Here are the most common scenarios:
+              The right time to hire a part-time CTO depends on your technical needs and company stage. Here are the most common scenarios:
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
@@ -237,7 +237,7 @@ export default function FractionalCTOServicesPage() {
               },
               {
                 scenario: 'Preparing for Fundraising',
-                description: 'Investors will want to talk to your technical leader. A fractional CTO provides credibility and handles technical due diligence.',
+                description: 'Investors will want to talk to your technical leader. A part-time CTO provides credibility and handles technical due diligence.',
                 timing: '3-6 months before raise',
               },
               {
@@ -257,7 +257,7 @@ export default function FractionalCTOServicesPage() {
               },
               {
                 scenario: 'Security & Compliance',
-                description: 'You need to achieve SOC 2, ISO 27001, or other certifications. A fractional CTO can lead the security programme.',
+                description: 'You need to achieve SOC 2, ISO 27001, or other certifications. A part-time CTO can lead the security programme.',
                 timing: '6 months before audit',
               },
             ].map((item, index) => (
@@ -276,12 +276,12 @@ export default function FractionalCTOServicesPage() {
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="mb-8 text-center">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Calculator</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">How Much Does a Fractional CTO Cost?</h2>
-            <p className="text-gray-600 mt-4">Compare the cost of fractional vs full-time CTO</p>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900">How Much Does a Part-Time CTO Cost?</h2>
+            <p className="text-gray-600 mt-4">Compare the cost of part-time vs full-time CTO</p>
           </div>
           <RoleCalculator role="cto" />
           <div className="mt-8 prose prose-gray max-w-none">
-            <h3 className="text-xl font-bold text-gray-900">Typical Fractional CTO Pricing</h3>
+            <h3 className="text-xl font-bold text-gray-900">Typical Part-Time CTO Pricing</h3>
             <ul className="text-gray-600">
               <li><strong>Day Rate:</strong> £850-£1,600 per day (depending on experience and specialisation)</li>
               <li><strong>Monthly Retainer:</strong> £3,500-£6,500 for 1-2 days per week</li>
@@ -300,7 +300,7 @@ export default function FractionalCTOServicesPage() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="mb-12 text-center">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Comparison</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">Fractional vs Interim vs Full-Time CTO</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900">Part-Time vs Interim vs Full-Time CTO</h2>
             <p className="text-gray-600 mt-4">Choose the right model for your needs</p>
           </div>
           <ServiceComparisonTable role="CTO" accentColor="blue" />
@@ -312,7 +312,7 @@ export default function FractionalCTOServicesPage() {
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="mb-12 text-center">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Process</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">How to Hire a Fractional CTO</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900">How to Hire a Part-Time CTO</h2>
             <p className="text-gray-600 mt-4">From first conversation to start date in as little as 2 weeks</p>
           </div>
           <HireProcessStepper accentColor="blue" />
@@ -334,17 +334,17 @@ export default function FractionalCTOServicesPage() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="mb-12">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Specialisations</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">Fractional CTOs by Expertise</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900">Part-Time CTOs by Expertise</h2>
             <p className="text-gray-600 mt-4">Specialists with deep technical experience</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { name: 'AI & Machine Learning', description: 'MLOps, model deployment, AI product development, data infrastructure', link: '/fractional-jobs-tech' },
-              { name: 'Cloud & DevOps', description: 'AWS/GCP/Azure, infrastructure as code, CI/CD, platform engineering', link: '/fractional-jobs-tech' },
-              { name: 'Security & Compliance', description: 'SOC 2, ISO 27001, penetration testing, security architecture', link: '/fractional-jobs-tech' },
-              { name: 'FinTech', description: 'Payment systems, FCA compliance, financial APIs, security requirements', link: '/fractional-jobs-finance' },
-              { name: 'B2B SaaS', description: 'Multi-tenant architecture, API design, integration platforms, enterprise features', link: '/fractional-jobs-saas' },
-              { name: 'HealthTech', description: 'HIPAA compliance, NHS integration, clinical systems, health data', link: '/fractional-jobs-healthcare' },
+              { name: 'AI & Machine Learning', description: 'MLOps, model deployment, AI product development, data infrastructure', link: '/part-time-jobs-tech' },
+              { name: 'Cloud & DevOps', description: 'AWS/GCP/Azure, infrastructure as code, CI/CD, platform engineering', link: '/part-time-jobs-tech' },
+              { name: 'Security & Compliance', description: 'SOC 2, ISO 27001, penetration testing, security architecture', link: '/part-time-jobs-tech' },
+              { name: 'FinTech', description: 'Payment systems, FCA compliance, financial APIs, security requirements', link: '/part-time-jobs-finance' },
+              { name: 'B2B SaaS', description: 'Multi-tenant architecture, API design, integration platforms, enterprise features', link: '/part-time-jobs-saas' },
+              { name: 'HealthTech', description: 'HIPAA compliance, NHS integration, clinical systems, health data', link: '/part-time-jobs-healthcare' },
             ].map((specialisation, index) => (
               <Link key={index} href={specialisation.link} className="block bg-white p-6 border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all">
                 <h3 className="font-bold text-gray-900 mb-2">{specialisation.name}</h3>
@@ -371,16 +371,16 @@ export default function FractionalCTOServicesPage() {
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 mb-4 block">Get Started</span>
           <h2 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
-            Ready to Hire a<br /><span className="text-blue-400">Fractional CTO?</span>
+            Ready to Hire a<br /><span className="text-blue-400">Part-Time CTO?</span>
           </h2>
           <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-            Tell us about your technical challenges and we'll match you with pre-vetted fractional CTOs who have solved them before. Start conversations within 48 hours.
+            Tell us about your technical challenges and we'll match you with pre-vetted part-time CTOs who have solved them before. Start conversations within 48 hours.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/handler/sign-up" className="px-10 py-5 bg-blue-500 text-white font-bold uppercase tracking-wider hover:bg-blue-400 transition-colors">
-              Find a Fractional CTO
+              Find a Part-Time CTO
             </Link>
-            <Link href="/fractional-cto-jobs-uk" className="px-10 py-5 border-2 border-white text-white font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
+            <Link href="/part-time-cto-jobs-uk" className="px-10 py-5 border-2 border-white text-white font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
               I'm a CTO Looking for Roles
             </Link>
           </div>
@@ -393,10 +393,10 @@ export default function FractionalCTOServicesPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <span className="text-sm font-bold uppercase tracking-wider text-gray-400">Related Services</span>
             <div className="flex flex-wrap gap-4">
-              <Link href="/fractional-cfo-services" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">Fractional CFO</Link>
-              <Link href="/fractional-cmo-services" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">Fractional CMO</Link>
-              <Link href="/fractional-coo-services" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">Fractional COO</Link>
-              <Link href="/fractional-cto-jobs-uk" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">CTO Jobs</Link>
+              <Link href="/part-time-cfo-services" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">Part-Time CFO</Link>
+              <Link href="/part-time-cmo-services" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">Part-Time CMO</Link>
+              <Link href="/part-time-coo-services" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">Part-Time COO</Link>
+              <Link href="/part-time-cto-jobs-uk" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">CTO Jobs</Link>
             </div>
           </div>
         </div>
