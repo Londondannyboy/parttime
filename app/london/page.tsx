@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-// Redirect /london to the canonical /fractional-jobs-london URL
+// Redirect /london to the canonical /part-time-jobs-london URL
 export default function LondonRedirect() {
-  redirect('/fractional-jobs-london')
+  redirect('/part-time-jobs-london')
 }

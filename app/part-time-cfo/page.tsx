@@ -131,7 +131,7 @@ export default async function PartTimeCfoPage() {
             London remains the UK's largest market for <strong>part-time CFO jobs</strong>, accounting for approximately 60% of all part-time finance roles. The City, Shoreditch, and Canary Wharf are particularly active markets, with strong demand from fintech, SaaS, and PE-backed companies.
           </p>
           <p>
-            Outside London, Manchester, Birmingham, Edinburgh, and Bristol all have growing fractional CFO markets, though day rates are typically 15-25% lower than London equivalents.
+            Outside London, Manchester, Birmingham, Edinburgh, and Bristol all have growing part-time CFO markets, though day rates are typically 15-25% lower than London equivalents.
           </p>
         </div>
       </article>

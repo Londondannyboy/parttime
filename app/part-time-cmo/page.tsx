@@ -121,7 +121,7 @@ export default async function PartTimeCmoPage() {
 
           <h2>How to Become a Part-Time CMO</h2>
           <p>
-            Transitioning to a <strong>part-time CMO career</strong> typically requires 12-15+ years of marketing experience, including significant time in senior leadership roles (VP Marketing, Marketing Director, or CMO). The most successful fractional CMOs have deep expertise in specific areas—such as B2B SaaS growth, brand building, or performance marketing—that make them highly valuable to target clients.
+            Transitioning to a <strong>part-time CMO career</strong> typically requires 12-15+ years of marketing experience, including significant time in senior leadership roles (VP Marketing, Marketing Director, or CMO). The most successful part-time CMOs have deep expertise in specific areas—such as B2B SaaS growth, brand building, or performance marketing—that make them highly valuable to target clients.
           </p>
           <p>
             Building a part-time practice takes time. Many part-time CMOs start with one or two engagements while consulting or between full-time roles, gradually building their client portfolio through referrals, networking, and platforms like <Link href="/part-time-jobs">Part-Time Quest</Link>.
@@ -132,7 +132,7 @@ export default async function PartTimeCmoPage() {
             London dominates the UK market for <strong>part-time CMO jobs</strong>, with approximately 55% of all part-time marketing leadership roles based in the capital. Shoreditch and the broader Tech City area are particularly active, given the concentration of startups and scale-ups requiring marketing leadership.
           </p>
           <p>
-            Manchester, Birmingham, and Bristol also have growing fractional CMO markets, particularly for companies in creative industries, e-commerce, and professional services. Remote and hybrid arrangements are increasingly common, expanding opportunities beyond traditional geographic boundaries.
+            Manchester, Birmingham, and Bristol also have growing part-time CMO markets, particularly for companies in creative industries, e-commerce, and professional services. Remote and hybrid arrangements are increasingly common, expanding opportunities beyond traditional geographic boundaries.
           </p>
         </div>
       </article>

@@ -239,7 +239,7 @@ export default async function TechJobsPage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Premium Rates</h3>
               <p className="text-gray-600">
-                Tech leadership commands the highest fractional rates. CTOs with cloud, AI, or security expertise can earn £1,200-£1,500/day.
+                Tech leadership commands the highest part-time rates. CTOs with cloud, AI, or security expertise can earn £1,200-£1,500/day.
               </p>
             </div>
             <div className="bg-white rounded-2xl p-8">

@@ -195,7 +195,7 @@ export default function FractionalCmoSalaryPage() {
 
             <h2>Part-Time CMO vs Full-Time CMO Salary</h2>
             <p>
-              A full-time CMO at a Series A/B startup typically earns £120,000-£160,000 plus equity. A <strong>part-time CMO</strong> earning £1,000/day for 150 days achieves £150,000—comparable cash with more flexibility. The trade-off is equity: full-time roles often include meaningful stock options that fractional arrangements typically don't.
+              A full-time CMO at a Series A/B startup typically earns £120,000-£160,000 plus equity. A <strong>part-time CMO</strong> earning £1,000/day for 150 days achieves £150,000—comparable cash with more flexibility. The trade-off is equity: full-time roles often include meaningful stock options that part-time arrangements typically don't.
             </p>
             <p>
               However, part-time CMOs can mitigate this by negotiating advisory equity or working with multiple companies, diversifying their portfolio exposure while maintaining higher cash compensation.
