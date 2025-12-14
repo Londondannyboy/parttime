@@ -6,6 +6,7 @@ import { JobHeader } from '@/components/JobHeader'
 import { JobBody } from '@/components/JobBody'
 import { SimilarJobs } from '@/components/SimilarJobs'
 import { JobsGraph3D } from '@/components/JobsGraph3D'
+import { DesktopOnly } from '@/components/DesktopOnly'
 import { ShareButtons } from '@/components/ShareButtons'
 
 // Revalidate every hour for job details
@@ -689,23 +690,25 @@ export default async function JobDetailPage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* 3D Jobs Knowledge Graph */}
-          <section id="jobs-graph" className="mt-16 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-16 bg-gray-950">
-            <div className="mb-8 text-center">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 block mb-2">Interactive Network</span>
-              <h2 className="text-2xl md:text-3xl font-black text-white">
-                {job.role_category ? `${job.role_category} Jobs Network` : 'Related Jobs Network'}
-              </h2>
-              <p className="text-gray-400 mt-2">
-                Explore similar roles, skills, and companies in 3D
-              </p>
-            </div>
-            <JobsGraph3D
-              roleFilter={job.role_category || ''}
-              limit={25}
-              height="500px"
-            />
-          </section>
+          {/* 3D Jobs Knowledge Graph - Desktop Only */}
+          <DesktopOnly>
+            <section id="jobs-graph" className="mt-16 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-16 bg-gray-950">
+              <div className="mb-8 text-center">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 block mb-2">Interactive Network</span>
+                <h2 className="text-2xl md:text-3xl font-black text-white">
+                  {job.role_category ? `${job.role_category} Jobs Network` : 'Related Jobs Network'}
+                </h2>
+                <p className="text-gray-400 mt-2">
+                  Explore similar roles, skills, and companies in 3D
+                </p>
+              </div>
+              <JobsGraph3D
+                roleFilter={job.role_category || ''}
+                limit={25}
+                height="500px"
+              />
+            </section>
+          </DesktopOnly>
 
           {/* Bottom CTA */}
           <div className="mt-16 pt-12 border-t border-gray-200">

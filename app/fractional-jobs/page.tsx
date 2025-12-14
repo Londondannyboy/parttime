@@ -8,6 +8,7 @@ import { JobsGraph3D } from '@/components/JobsGraph3D'
 import { JobsSunburst } from '@/components/JobsSunburst'
 import { SkillsRadar } from '@/components/SkillsRadar'
 import { VideoHeroBackground } from '@/components/VideoHeroBackground'
+import { DesktopOnly } from '@/components/DesktopOnly'
 
 // Same video as homepage
 const HERO_VIDEO_PLAYBACK_ID: string | undefined = "qIS6PGKxIZyzjrDBzxQuqPRBOhHofDnXq1chdsqAY9Y"
@@ -261,41 +262,45 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
           </div>
         </section>
 
-        {/* Sunburst Role Explorer - Top Visual */}
-        <section className="py-16 bg-gray-950">
-          <div className="max-w-6xl mx-auto px-6 lg:px-8">
-            <div className="text-center mb-10">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-amber-400 mb-2 block">Explore Hierarchy</span>
-              <h2 className="text-3xl md:text-4xl font-black text-white">Role Explorer</h2>
-              <p className="text-gray-400 mt-2">Click to drill down through roles, companies, and jobs</p>
-            </div>
-            <Suspense fallback={
-              <div className="flex items-center justify-center h-96 bg-gray-900 rounded-xl">
-                <div className="w-12 h-12 border-4 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
+        {/* Sunburst Role Explorer - Desktop Only */}
+        <DesktopOnly>
+          <section className="py-16 bg-gray-950">
+            <div className="max-w-6xl mx-auto px-6 lg:px-8">
+              <div className="text-center mb-10">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-amber-400 mb-2 block">Explore Hierarchy</span>
+                <h2 className="text-3xl md:text-4xl font-black text-white">Role Explorer</h2>
+                <p className="text-gray-400 mt-2">Click to drill down through roles, companies, and jobs</p>
               </div>
-            }>
-              <JobsSunburst height="500px" />
-            </Suspense>
-          </div>
-        </section>
+              <Suspense fallback={
+                <div className="flex items-center justify-center h-96 bg-gray-900 rounded-xl">
+                  <div className="w-12 h-12 border-4 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
+                </div>
+              }>
+                <JobsSunburst height="500px" />
+              </Suspense>
+            </div>
+          </section>
+        </DesktopOnly>
 
-        {/* Skills Radar - Role Comparison */}
-        <section className="py-16 bg-gray-900">
-          <div className="max-w-5xl mx-auto px-6 lg:px-8">
-            <div className="text-center mb-10">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-purple-400 mb-2 block">Skills Analysis</span>
-              <h2 className="text-3xl md:text-4xl font-black text-white">Compare Role Skills</h2>
-              <p className="text-gray-400 mt-2">See which skills matter most across C-suite roles</p>
-            </div>
-            <Suspense fallback={
-              <div className="flex items-center justify-center h-96 bg-gray-950 rounded-xl">
-                <div className="w-12 h-12 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin" />
+        {/* Skills Radar - Desktop Only */}
+        <DesktopOnly>
+          <section className="py-16 bg-gray-900">
+            <div className="max-w-5xl mx-auto px-6 lg:px-8">
+              <div className="text-center mb-10">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-purple-400 mb-2 block">Skills Analysis</span>
+                <h2 className="text-3xl md:text-4xl font-black text-white">Compare Role Skills</h2>
+                <p className="text-gray-400 mt-2">See which skills matter most across C-suite roles</p>
               </div>
-            }>
-              <SkillsRadar height="500px" />
-            </Suspense>
-          </div>
-        </section>
+              <Suspense fallback={
+                <div className="flex items-center justify-center h-96 bg-gray-950 rounded-xl">
+                  <div className="w-12 h-12 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin" />
+                </div>
+              }>
+                <SkillsRadar height="500px" />
+              </Suspense>
+            </div>
+          </section>
+        </DesktopOnly>
 
         {/* Filter Section */}
         <section className="py-8 bg-gray-50 border-b border-gray-200">
@@ -406,33 +411,35 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
           </div>
         </section>
 
-        {/* 3D Jobs Knowledge Graph */}
-        <section className="py-20 md:py-28 bg-gray-950">
-          <div className="max-w-6xl mx-auto px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-sm text-gray-400 mb-4">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                Interactive 3D Network
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Jobs Knowledge Graph</h2>
-              <p className="text-lg text-gray-400">
-                Explore relationships between jobs, skills, and companies in 3D
-              </p>
-            </div>
-            <Suspense fallback={
-              <div className="rounded-xl p-6 flex items-center justify-center h-[550px]" style={{ background: 'radial-gradient(ellipse at center, #111827 0%, #030712 100%)' }}>
-                <div className="text-center">
-                  <div className="w-12 h-12 border-4 border-gray-600/30 border-t-gray-400 rounded-full animate-spin mx-auto mb-4" />
-                  <p className="text-gray-400 text-sm">Loading 3D network...</p>
+        {/* 3D Jobs Knowledge Graph - Desktop Only */}
+        <DesktopOnly>
+          <section className="py-20 md:py-28 bg-gray-950">
+            <div className="max-w-6xl mx-auto px-6 lg:px-8">
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-sm text-gray-400 mb-4">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  Interactive 3D Network
                 </div>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Jobs Knowledge Graph</h2>
+                <p className="text-lg text-gray-400">
+                  Explore relationships between jobs, skills, and companies in 3D
+                </p>
               </div>
-            }>
-              <JobsGraph3D roleFilter={roleFilter} limit={20} height="550px" />
-            </Suspense>
-          </div>
-        </section>
+              <Suspense fallback={
+                <div className="rounded-xl p-6 flex items-center justify-center h-[550px]" style={{ background: 'radial-gradient(ellipse at center, #111827 0%, #030712 100%)' }}>
+                  <div className="text-center">
+                    <div className="w-12 h-12 border-4 border-gray-600/30 border-t-gray-400 rounded-full animate-spin mx-auto mb-4" />
+                    <p className="text-gray-400 text-sm">Loading 3D network...</p>
+                  </div>
+                </div>
+              }>
+                <JobsGraph3D roleFilter={roleFilter} limit={20} height="550px" />
+              </Suspense>
+            </div>
+          </section>
+        </DesktopOnly>
 
         {/* Browse by Role - Dark section */}
         <section className="py-20 md:py-28 bg-gray-900">
