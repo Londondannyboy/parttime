@@ -104,10 +104,10 @@ export function RoleCalculator({ role, className = '' }: RoleCalculatorProps) {
 
   // Employer calculations
   const fullTimeTotalCost = fullTimeSalary * 1.35 // Include NI, benefits, overhead
-  const fractionalDailyEquivalent = roleData.avgDayRate
+  const partTimeDailyEquivalent = roleData.avgDayRate
   const daysPerWeekNeeded = hoursNeeded / 8
-  const fractionalAnnualCost = fractionalDailyEquivalent * daysPerWeekNeeded * 48
-  const savings = fullTimeTotalCost - fractionalAnnualCost
+  const partTimeAnnualCost = partTimeDailyEquivalent * daysPerWeekNeeded * 48
+  const savings = fullTimeTotalCost - partTimeAnnualCost
   const savingsPercent = Math.round((savings / fullTimeTotalCost) * 100)
 
   const formatCurrency = (amount: number) => {
@@ -335,7 +335,7 @@ export function RoleCalculator({ role, className = '' }: RoleCalculatorProps) {
                       <div className="text-xs text-gray-500">({daysPerWeekNeeded.toFixed(1)} days/week x 48 weeks)</div>
                     </div>
                     <div className="text-2xl font-bold text-emerald-400">
-                      {formatCurrency(fractionalAnnualCost)}
+                      {formatCurrency(partTimeAnnualCost)}
                     </div>
                   </div>
                 </div>
