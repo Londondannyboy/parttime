@@ -518,34 +518,34 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 text-center">
+            <div className="bg-black rounded-xl p-8 border border-gray-800 text-center">
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-black text-black">1</div>
               <h3 className="text-xl font-bold text-white mb-3">Brief</h3>
-              <p className="text-gray-400">
+              <p className="text-gray-300">
                 Tell us about your needs, company stage, and what you're looking for in a fractional executive.
               </p>
             </div>
 
-            <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 text-center">
+            <div className="bg-black rounded-xl p-8 border border-gray-800 text-center">
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-black text-black">2</div>
               <h3 className="text-xl font-bold text-white mb-3">Match</h3>
-              <p className="text-gray-400">
+              <p className="text-gray-300">
                 We curate a shortlist of pre-vetted fractional executives who match your specific requirements.
               </p>
             </div>
 
-            <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 text-center">
+            <div className="bg-black rounded-xl p-8 border border-gray-800 text-center">
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-black text-black">3</div>
               <h3 className="text-xl font-bold text-white mb-3">Meet</h3>
-              <p className="text-gray-400">
+              <p className="text-gray-300">
                 Interview your top candidates. We handle scheduling and provide interview frameworks.
               </p>
             </div>
 
-            <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 text-center">
+            <div className="bg-black rounded-xl p-8 border border-gray-800 text-center">
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-black text-black">4</div>
               <h3 className="text-xl font-bold text-white mb-3">Start</h3>
-              <p className="text-gray-400">
+              <p className="text-gray-300">
                 Your fractional executive begins within days. We support onboarding and ongoing success.
               </p>
             </div>
